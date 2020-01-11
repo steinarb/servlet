@@ -1,0 +1,74 @@
+* Java servlet common code
+
+Servlet and filter classes that are intended to be inherited to cut down on boilerplate code
+
+** Status of the project
+
+[[https://travis-ci.org/steinarb/servlet][file:https://travis-ci.org/steinarb/servlet.svg?branch=master]] [[https://sonarcloud.io/dashboard?id=no.priv.bang.servlet%3Aservlet][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.servlet%3Aservlet&metric=alert_status#.svg]] [[https://maven-badges.herokuapp.com/maven-central/no.priv.bang.servlet/servlet][file:https://maven-badges.herokuapp.com/maven-central/no.priv.bang.servlet/servlet/badge.svg]] [[https://www.javadoc.io/doc/no.priv.bang.servlet/servlet][file:https://www.javadoc.io/badge/no.priv.bang.servlet/servlet.svg]]
+
+*** Sonarqube
+
+[[https://sonarcloud.io/dashboard?id=no.priv.bang.servlet%3Aservlet][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.servlet%3Aservlet&metric=ncloc#.svg]] [[https://sonarcloud.io/dashboard?id=no.priv.bang.servlet%3Aservlet][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.servlet%3Aservlet&metric=bugs#.svg]] [[https://sonarcloud.io/dashboard?id=no.priv.bang.servlet%3Aservlet][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.servlet%3Aservlet&metric=vulnerabilities#.svg]] [[https://sonarcloud.io/dashboard?id=no.priv.bang.servlet%3Aservlet][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.servlet%3Aservlet&metric=code_smells#.svg]] [[https://sonarcloud.io/dashboard?id=no.priv.bang.servlet%3Aservlet][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.servlet%3Aservlet&metric=coverage#.svg]]
+
+** Release history
+
+| Date | Version | Comment |
+|------+---------+---------|
+|      |   1.0.0 |         |
+
+** Overview of the project
+
+*** Frontend
+
+This is a servlet that's intened to be extended by a servlet serving out a JS frontend packed by webpack.
+
+The servlet will search for resources matching the pathInfo (minus the webcontext) on the classpath and serve them out, setting the content type based on the file name extension.
+
+The servlet will try serving the file "index.html" (that must exist on the classpath) for a list of routes, that can be set by a subclass. This is to handle reloads of URLs set by e.g. the react router.
+
+To use the servlet in an application built with maven, add the maven dependency:
+#+begin_src xml
+  <dependency>
+   <groupId>no.priv.bang.servlet</groupId>
+   <artifactId>servlet.frontend</artifactId>
+   <version>1.0.0-SNAPSHOT</version>
+  </dependency>
+#+end_src
+
+To use the servlet in a webapp running in the apache karaf web whiteboard apache:
+ 1. Add a maven dependency
+    #+begin_src xml
+      <dependency>
+       <groupId>no.priv.bang.servlet</groupId>
+       <artifactId>servlet.frontend</artifactId>
+       <version>1.0.0-SNAPSHOT</version>
+       <scope>provided</scope>
+      </dependency>
+    #+end_src
+ 2. Create an OSGi bundle containing a DS component registering with the web whiteboard
+    #+begin_src java
+      @Component(service={Servlet.class})
+      public class ReactServlet extends FrontendServlet {
+
+          // The paths used by the react router all needs to return the HTML wrapping the bundle.js
+          private final List<String> routes = Arrays.asList("/", "/counter", "/about");
+
+          @Reference
+          public void setLogservice(LogService logservice) {
+              super.setLogService(logservice);
+          }
+      }
+    #+end_src
+ 3. Add a runtime dependency to the bundle project's template feature repository (i.e. =src/main/feature/feature.xml= in the bundle project):
+    #+begin_src xml
+      <features>
+       <repository>mvn:no.priv.bang.servlet/servlet/1.0.0-SNAPSHOT/xml/features</repository>
+       <feature name="my-servlet">
+        <feature>frontend-servlet</feature>
+       </feature>
+      </features>
+    #+end_src
+
+** License
+
+This code is licensed under the Apache license v. 2.  See the LICENSE file for details.
