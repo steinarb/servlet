@@ -12,9 +12,9 @@ Servlet and filter classes that are intended to be inherited to cut down on boil
 
 ** Release history
 
-| Date | Version | Comment |
-|------+---------+---------|
-|      |   1.0.0 |         |
+| Date                   | Version | Comment                              |
+|------------------------+---------+--------------------------------------|
+| <2020-01-12 Sun 23:26> |   1.0.0 | First release of the FrontendServlet |
 
 ** Overview of the project
 
@@ -31,7 +31,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.frontend</artifactId>
-   <version>1.0.0-SNAPSHOT</version>
+   <version>1.0.0</version>
   </dependency>
 #+end_src
 
@@ -41,7 +41,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
       <dependency>
        <groupId>no.priv.bang.servlet</groupId>
        <artifactId>servlet.frontend</artifactId>
-       <version>1.0.0-SNAPSHOT</version>
+       <version>1.0.0</version>
        <scope>provided</scope>
       </dependency>
     #+end_src
@@ -62,7 +62,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
  3. Add a runtime dependency to the bundle project's template feature repository (i.e. =src/main/feature/feature.xml= in the bundle project):
     #+begin_src xml
       <features>
-       <repository>mvn:no.priv.bang.servlet/servlet/1.0.0-SNAPSHOT/xml/features</repository>
+       <repository>mvn:no.priv.bang.servlet/servlet/1.0.0/xml/features</repository>
        <feature name="my-servlet">
         <feature>frontend-servlet</feature>
        </feature>
