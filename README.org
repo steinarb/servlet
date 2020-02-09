@@ -20,7 +20,7 @@ Servlet and filter classes that are intended to be inherited to cut down on boil
 
 *** Frontend
 
-This is a servlet that's intened to be extended by a servlet serving out a JS frontend packed by webpack.
+This is a servlet that's intended to be extended by a servlet serving out a JS frontend packed by webpack.
 
 The servlet will search for resources matching the pathInfo (minus the webcontext) on the classpath and serve them out, setting the content type based on the file name extension.
 
@@ -65,6 +65,74 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
        <repository>mvn:no.priv.bang.servlet/servlet/1.0.0/xml/features</repository>
        <feature name="my-servlet">
         <feature>frontend-servlet</feature>
+       </feature>
+      </features>
+    #+end_src
+
+*** Jersey
+
+This is a servlet that's intended to be extended by a servlet using [[https://jersey.github.io/][jersey]] to implement a REST API.
+
+The JerseyServlet does two things:
+ 1. Adds a way to add injected OSGi services to the HK2 dependency injection container, so that the OSGi services can be injected into Jersey resources, allowing the Jersey resources to be thin shims over OSGi service calls
+ 2. Adds the subpackage ".resources" of the servlet's package as the default package to scan for Jersey resources /Note/! If a different package is set by configuration, this will override the default
+
+To use the servlet in an application built with maven, add the maven dependency:
+#+begin_src xml
+  <dependency>
+   <groupId>no.priv.bang.servlet</groupId>
+   <artifactId>servlet.jersey</artifactId>
+   <version>1.1.0</version>
+  </dependency>
+#+end_src
+
+To use the servlet in a webapp running in the apache karaf web whiteboard apache:
+ 1. Add a maven dependency
+    #+begin_src xml
+      <dependency>
+       <groupId>no.priv.bang.servlet</groupId>
+       <artifactId>servlet.jersey</artifactId>
+       <version>1.1.0</version>
+       <scope>provided</scope>
+      </dependency>
+    #+end_src
+ 2. Create an OSGi bundle containing a DS component registering with the web whiteboard
+    #+begin_src java
+      package no.priv.bang.servlet.jersey.test;
+
+      @Component(service={Servlet.class})
+      public class ExampleJerseyServlet extends JerseyServlet {
+          private static final long serialVersionUID = -675612245532839390L;
+
+          @Reference
+          public void setHelloService(HelloService service) {
+              addInjectedOsgiServices(HelloService.class, service);
+          }
+      }
+    #+end_src
+ 3. Add resources implementing REST API endpoints in the .resources sub-package of the servlet's package:
+    #+begin_src java
+      package no.priv.bang.servlet.jersey.test.resources;
+
+      @Path("/hello")
+      public class HelloResource {
+
+          @Inject
+          HelloService service;
+
+          @GET
+          @Produces("text/plain")
+          public String getHello() {
+              return service.hello();
+          }
+      }
+    #+end_src
+ 4. Add a runtime dependency to the bundle project's template feature repository (i.e. =src/main/feature/feature.xml= in the bundle project):
+    #+begin_src xml
+      <features>
+       <repository>mvn:no.priv.bang.servlet/servlet/1.1.0/xml/features</repository>
+       <feature name="my-servlet">
+        <feature>jersey-servlet</feature>
        </feature>
       </features>
     #+end_src
