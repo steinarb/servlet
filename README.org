@@ -96,21 +96,26 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
        <scope>provided</scope>
       </dependency>
     #+end_src
- 2. Create an OSGi bundle containing a DS component registering with the web whiteboard
+ 2. Create an OSGi bundle containing a DS component registering with the web whiteboard.
     #+begin_src java
       package no.priv.bang.servlet.jersey.test;
 
       @Component(service={Servlet.class})
       public class ExampleJerseyServlet extends JerseyServlet {
-          private static final long serialVersionUID = -675612245532839390L;
 
           @Reference
           public void setHelloService(HelloService service) {
               addInjectedOsgiServices(HelloService.class, service);
           }
+
+          @Reference
+          public void setLogService(LogService logservice) {
+              super.setLogService(logservice);
+          }
       }
     #+end_src
- 3. Add resources implementing REST API endpoints in the .resources sub-package of the servlet's package:
+    /Note/! [[http://javadox.com/org.osgi/osgi.cmpn/6.0.0/org/osgi/service/log/LogService.html][The OSGi LogService]] must be added by a separate method, since the LogService is used by the JerseyServlet itself (as well as being added to HK2, which makes it possible to use LogService in Jersey resources).
+ 3. Add resources implementing REST API endpoints in the .resources sub-package of the servlet's package, and use @Inject to inject the OSGi services that JerseyServlet adds to the HK2 dependency injection container:
     #+begin_src java
       package no.priv.bang.servlet.jersey.test.resources;
 
