@@ -65,7 +65,7 @@ public class JerseyServlet extends ServletContainer {
      * @param servicetype the {@link Class} of the injected OSGi service
      * @param service the OSGi service to register with the HK2 dependency injection container
      */
-    protected void addInjectedOsgiServices(Class<?> servicetype, Object service) {
+    protected void addInjectedOsgiService(Class<?> servicetype, Object service) {
         injectedServices.put(servicetype, service);
     }
 
@@ -79,7 +79,7 @@ public class JerseyServlet extends ServletContainer {
      */
     public void setLogService(LogService logservice) {
         this.logservice.setLogService(logservice);
-        addInjectedOsgiServices(LogService.class, logservice);
+        addInjectedOsgiService(LogService.class, logservice);
     }
 
     @Override

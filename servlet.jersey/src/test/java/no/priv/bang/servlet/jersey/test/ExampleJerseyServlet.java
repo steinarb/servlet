@@ -14,7 +14,7 @@ public class ExampleJerseyServlet extends JerseyServlet {
 
     @Reference
     public void setHelloService(HelloService service) {
-        addInjectedOsgiServices(HelloService.class, service);
+        addInjectedOsgiService(HelloService.class, service);
     }
 
     @Activate
