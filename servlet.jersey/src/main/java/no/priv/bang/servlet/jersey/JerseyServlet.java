@@ -49,7 +49,7 @@ public class JerseyServlet extends ServletContainer {
     private static final long serialVersionUID = -1314568939940495758L;
     private final LogServiceAdapter logservice = new LogServiceAdapter();
     private final String defaultResourcePackage = getClass().getPackage().getName() + ".resources";
-    Map<Class<?>, Object> injectedServices = new HashMap<>();
+    private final Map<Class<?>, Object> injectedServices = new HashMap<>();
 
     /**
      * Method for registering OSGi services with the HK2 dependency injection
