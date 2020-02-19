@@ -14,6 +14,7 @@ Servlet and filter classes that are intended to be inherited to cut down on boil
 
 | Date                   | Version | Comment                              |
 |------------------------+---------+--------------------------------------|
+| <2020-02-19 Wed 07:52> |   1.1.0 | First release of the JerseyServlet   |
 | <2020-01-12 Sun 23:26> |   1.0.0 | First release of the FrontendServlet |
 
 ** Overview of the project
@@ -31,7 +32,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.frontend</artifactId>
-   <version>1.0.0</version>
+   <version>1.1.0</version>
   </dependency>
 #+end_src
 
@@ -41,7 +42,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
       <dependency>
        <groupId>no.priv.bang.servlet</groupId>
        <artifactId>servlet.frontend</artifactId>
-       <version>1.0.0</version>
+       <version>1.1.0</version>
        <scope>provided</scope>
       </dependency>
     #+end_src
