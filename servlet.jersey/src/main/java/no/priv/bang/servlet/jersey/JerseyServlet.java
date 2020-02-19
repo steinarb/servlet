@@ -51,10 +51,32 @@ public class JerseyServlet extends ServletContainer {
     private final String defaultResourcePackage = getClass().getPackage().getName() + ".resources";
     Map<Class<?>, Object> injectedServices = new HashMap<>();
 
+    /**
+     * Method for registering OSGi services with the HK2 dependency injection
+     * container.
+     *
+     * DS components implementing the {@link Servlet} interface should call this method
+     * to register injected OSGi services.
+     *
+     * <em>Note</em>! Injections of {@link LogService} should call the {@link #setLogService(LogService)}
+     * method instead (since the JerseyServlet class uses the {@link LogService} on errors
+     * in servlet setup.
+     *
+     * @param servicetype the {@link Class} of the injected OSGi service
+     * @param service the OSGi service to register with the HK2 dependency injection container
+     */
     protected void addInjectedOsgiServices(Class<?> servicetype, Object service) {
         injectedServices.put(servicetype, service);
     }
 
+    /**
+     * Used to register the OSGi {@link LogService} to the JerseyServlet.
+     * The service is used by the JerseyServlet itself, but also added
+     * to the HK2 dependency container, so that the {@link LogService}
+     * can be injected into Jersey resources.
+     *
+     * @param logservice an OSGi {@link LogService}
+     */
     public void setLogService(LogService logservice) {
         this.logservice.setLogService(logservice);
         addInjectedOsgiServices(LogService.class, logservice);
