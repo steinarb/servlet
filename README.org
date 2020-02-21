@@ -12,10 +12,11 @@ Servlet and filter classes that are intended to be inherited to cut down on boil
 
 ** Release history
 
-| Date                   | Version | Comment                              |
-|------------------------+---------+--------------------------------------|
-| <2020-02-19 Wed 07:52> |   1.1.0 | First release of the JerseyServlet   |
-| <2020-01-12 Sun 23:26> |   1.0.0 | First release of the FrontendServlet |
+| Date                   | Version | Comment                                                      |
+|------------------------+---------+--------------------------------------------------------------|
+| <2020-02-21 Fri 22:42> |   1.1.1 | Bugfix release of the JerseyServlet with correct method name |
+| <2020-02-19 Wed 07:52> |   1.1.0 | First release of the JerseyServlet                           |
+| <2020-01-12 Sun 23:26> |   1.0.0 | First release of the FrontendServlet                         |
 
 ** Overview of the project
 
@@ -32,7 +33,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.frontend</artifactId>
-   <version>1.1.0</version>
+   <version>1.1.1</version>
   </dependency>
 #+end_src
 
@@ -42,7 +43,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
       <dependency>
        <groupId>no.priv.bang.servlet</groupId>
        <artifactId>servlet.frontend</artifactId>
-       <version>1.1.0</version>
+       <version>1.1.1</version>
        <scope>provided</scope>
       </dependency>
     #+end_src
@@ -83,7 +84,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.jersey</artifactId>
-   <version>1.1.0</version>
+   <version>1.1.1</version>
   </dependency>
 #+end_src
 
@@ -93,7 +94,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
       <dependency>
        <groupId>no.priv.bang.servlet</groupId>
        <artifactId>servlet.jersey</artifactId>
-       <version>1.1.0</version>
+       <version>1.1.1</version>
        <scope>provided</scope>
       </dependency>
     #+end_src
@@ -106,7 +107,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
 
           @Reference
           public void setHelloService(HelloService service) {
-              addInjectedOsgiServices(HelloService.class, service);
+              addInjectedOsgiService(HelloService.class, service);
           }
 
           @Reference
@@ -136,7 +137,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
  4. Add a runtime dependency to the bundle project's template feature repository (i.e. =src/main/feature/feature.xml= in the bundle project):
     #+begin_src xml
       <features>
-       <repository>mvn:no.priv.bang.servlet/servlet/1.1.0/xml/features</repository>
+       <repository>mvn:no.priv.bang.servlet/servlet/1.1.1/xml/features</repository>
        <feature name="my-servlet">
         <feature>jersey-servlet</feature>
        </feature>
