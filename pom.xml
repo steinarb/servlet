@@ -26,10 +26,12 @@
     <modules>
         <module>servlet.frontend</module>
         <module>servlet.jersey</module>
+        <module>jacoco-coverage-report</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../jacoco-coverage-report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
         <mockrunner.version>2.0.1</mockrunner.version>
         <maven.bundle.plugin.version>3.5.1</maven.bundle.plugin.version>
@@ -167,9 +169,22 @@
                     <version>2.7</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.6.0.1398</version>
+                </plugin>
+                <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>0.8.5</version>
+                    <executions>
+                        <execution>
+                            <id>prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.felix</groupId>
