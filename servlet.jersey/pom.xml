@@ -21,7 +21,8 @@
     </parent>
     <artifactId>servlet.jersey</artifactId>
 
-    <name>Base class for DS components implementing REST APIs using jersey</name>
+    <name>Base class for jersey REST API servlets</name>
+    <description>Base class for DS components implementing REST APIs using jersey</description>
 
     <properties>
         <karaf-feature-name>jersey-servlet</karaf-feature-name>
