@@ -21,7 +21,7 @@
     </parent>
     <artifactId>servlet.frontend</artifactId>
 
-    <name>Base class for frontend servlet</name>
+    <name>Base class for frontend servlets</name>
 
     <properties>
         <karaf-feature-name>frontend-servlet</karaf-feature-name>
