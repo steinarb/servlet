@@ -50,11 +50,12 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
     #+end_src
  2. Create an OSGi bundle containing a DS component registering with the web whiteboard
     #+begin_src java
-      @Component(service={Servlet.class})
+      @Component(service={Servlet.class}, property={"alias=/myapp"})
       public class ReactServlet extends FrontendServlet {
-
-          // The paths used by the react router all needs to return the HTML wrapping the bundle.js
-          private final List<String> routes = Arrays.asList("/", "/counter", "/about");
+          public ReactServlet() {
+              super();
+              setRoutes("/", "/counter", "/about");
+          }
 
           @Reference
           public void setLogservice(LogService logservice) {
