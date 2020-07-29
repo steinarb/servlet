@@ -116,7 +116,7 @@ public class FrontendServlet extends HttpServlet{
     }
 
     private String findResourceFromPathInfo(String pathInfo) {
-        if (routes.contains(pathInfo)) {
+        if (getRoutes().contains(pathInfo)) {
             return "index.html";
         }
 
