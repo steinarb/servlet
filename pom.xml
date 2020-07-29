@@ -16,7 +16,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>no.priv.bang.servlet</groupId>
     <artifactId>servlet</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>1.2.0</version>
 
     <packaging>pom</packaging>
 
@@ -394,7 +394,7 @@
     <scm>
         <url>https://github.com/steinarb/servlet</url>
         <connection>scm:git:https://github.com/steinarb/servlet.git</connection>
-        <tag>HEAD</tag>
+        <tag>servlet-1.2.0</tag>
     </scm>
 
     <issueManagement>
