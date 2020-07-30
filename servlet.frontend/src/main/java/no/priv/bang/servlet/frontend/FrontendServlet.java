@@ -153,6 +153,10 @@ public class FrontendServlet extends HttpServlet{
             return "text/css";
         }
 
+        if ("ico".equals(extension)) {
+            return "image/x-icon";
+        }
+
         return null;
     }
 

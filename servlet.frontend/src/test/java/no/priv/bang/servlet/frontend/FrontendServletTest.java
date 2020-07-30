@@ -103,6 +103,7 @@ class FrontendServletTest {
         FrontendServlet servlet = new FrontendServlet();
         assertEquals("application/javascript", servlet.guessContentTypeFromResourceName("bundle.js"));
         assertEquals("text/css", servlet.guessContentTypeFromResourceName("application.css"));
+        assertEquals("image/x-icon", servlet.guessContentTypeFromResourceName("favicon.ico"));
         assertNull(servlet.guessContentTypeFromResourceName("unknown.type"));
     }
 
