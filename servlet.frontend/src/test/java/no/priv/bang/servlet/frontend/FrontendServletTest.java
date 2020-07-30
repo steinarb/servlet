@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockHttpServletResponse;
+import static javax.servlet.http.HttpServletResponse.*;
 
 import no.priv.bang.osgi.service.mocks.logservice.MockLogService;
 
@@ -45,7 +46,7 @@ class FrontendServletTest {
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
-        assertEquals(200, response.getStatus());
+        assertEquals(SC_OK, response.getStatus());
         assertEquals("text/html", response.getContentType());
         String responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("bundle.js");
@@ -61,7 +62,7 @@ class FrontendServletTest {
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
-        assertEquals(302, response.getStatus());
+        assertEquals(SC_FOUND, response.getStatus());
     }
 
     @Test
@@ -75,7 +76,7 @@ class FrontendServletTest {
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
-        assertEquals(404, response.getErrorCode());
+        assertEquals(SC_NOT_FOUND, response.getErrorCode());
     }
 
     @Test
@@ -93,7 +94,7 @@ class FrontendServletTest {
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
-        assertEquals(500, response.getStatus());
+        assertEquals(SC_INTERNAL_SERVER_ERROR, response.getStatus());
     }
 
     @Test

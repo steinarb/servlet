@@ -28,6 +28,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import static javax.servlet.http.HttpServletResponse.*;
 
 import org.osgi.service.log.LogService;
 
@@ -82,18 +83,18 @@ public class FrontendServlet extends HttpServlet{
                 try(InputStream resourceFromClasspath = getClass().getClassLoader().getResourceAsStream(resource)) {
                     if (resourceFromClasspath != null) {
                         copyStream(resourceFromClasspath, responseBody);
-                        response.setStatus(200);
+                        response.setStatus(SC_OK);
                         return;
                     }
 
                     String message = String.format("Resource \"%s\" not found on the classpath", resource);
                     logservice.log(LogService.LOG_ERROR, message);
-                    response.sendError(404, message);
+                    response.sendError(SC_NOT_FOUND, message);
                 }
             }
         } catch (IOException e) {
             logservice.log(LogService.LOG_ERROR, "Frontend servlet caught exception ", e);
-            response.setStatus(500); // Report internal server error
+            response.setStatus(SC_INTERNAL_SERVER_ERROR); // Report internal server error
         }
     }
 
