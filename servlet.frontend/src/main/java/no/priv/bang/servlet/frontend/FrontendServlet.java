@@ -78,6 +78,10 @@ public class FrontendServlet extends HttpServlet{
 
             String resource = findResourceFromPathInfo(pathInfo);
             String contentType = guessContentTypeFromResourceName(resource);
+            if (thisIsAResourceThatShouldBeProcessed(request, pathInfo, resource, contentType)) {
+                processResource(response, request, pathInfo, resource, contentType);
+                return;
+            }
             response.setContentType(contentType);
             try(ServletOutputStream responseBody = response.getOutputStream()) {
                 try(InputStream resourceFromClasspath = getClass().getClassLoader().getResourceAsStream(resource)) {
@@ -95,6 +99,42 @@ public class FrontendServlet extends HttpServlet{
         } catch (IOException e) {
             logservice.log(LogService.LOG_ERROR, "Frontend servlet caught exception ", e);
             response.setStatus(SC_INTERNAL_SERVER_ERROR); // Report internal server error
+        }
+    }
+
+    /**
+     * This is a method that should be overridden in a subclass to detect
+     * if a resource should be processed instead of just returned as-is.
+     * @param request the request as received by the servlet framework
+     * @param pathInfo the path information from the request URL, potentially with a "/" added
+     * @param resource the classpath resource name (e.g. 'index.html' or 'bundle.js')
+     * @param contentType the content type as detected by {@link FrontendServlet}
+     *
+     * @return true if the resource should be processed false if the resource should be returned unchanged
+     */
+    protected boolean thisIsAResourceThatShouldBeProcessed(HttpServletRequest request, String pathInfo, String resource, String contentType) {
+        return false;
+    }
+
+    /**
+     * This is a method that will be called for resources that should be
+     * processed in some way before they are returned. Subclasses should
+     * replace the method to do processing.  The base class implementation
+     * returns status code 501 Not Implemented
+     *
+     * @param response Implementors of this method needs to set content type, status code and body in the response object
+     * @param request the request as received by the servlet framework
+     * @param pathInfo the path information from the request URL, potentially with a "/" added
+     * @param resource This is the resource matching the pathInfo
+     * @param contentType the content type as detected by {@link FrontendServlet}
+     * @throws IOException
+     */
+    protected void processResource(HttpServletResponse response, HttpServletRequest request, String pathInfo, String resource, String contentType) throws IOException {
+        response.setStatus(SC_NOT_IMPLEMENTED);
+        response.sendError(SC_NOT_IMPLEMENTED);
+        response.setContentType("text/plain");
+        try (ServletOutputStream body = response.getOutputStream()) {
+            body.print("Processing of content not implemented");
         }
     }
 

@@ -75,6 +75,28 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
       </features>
     #+end_src
 
+**** Processing content
+
+In many cases, just sending resources found on the classpath, is what is wanted.
+
+But in some cases it may be desirable to do processing on the resource found on the classpath, before it is returned.
+
+One such example, is the "index.html" file that is used to boostrap the webapp returned by the FrontendServlet.  In this case it is desirable to set [[https://ogp.me][Open Graph <meta> headers]] corresponding to the path the application is entered with.
+
+This is so that you can give an URL to a specific subpage in a webapp, and that URL will return <meta> headers with information that will make the URL look nice in google searches and various social media.
+
+To accomplish this, FrontendServlet has two overridable methods:
+#+begin_src java
+  public class FrontendServlet extends HttpServlet{
+      protected boolean thisIsAResourceThatShouldBeProcessed(String pathInfo, String resource, String contentType);
+      protected void processResource(HttpServletResponse response, String pathInfo, String resource, String contentType) throws IOException;
+  }
+#+end_src
+
+The =thisIsAResourceThatShouldBeProcessed()= method is overridden to detect if a resource should be processed.  If this method returns true, then =processResource()= will be called and no further handling of the request will be done by the FrontendServlet base class.
+
+The FrontendServlet base implementation of =processResource()= returns the status code [[https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/501][501 Not Implemented]].
+
 *** Jersey
 
 This is a servlet that's intended to be extended by a servlet using [[https://jersey.github.io/][jersey]] to implement a REST API.

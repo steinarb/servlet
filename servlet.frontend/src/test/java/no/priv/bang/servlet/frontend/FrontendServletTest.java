@@ -25,6 +25,7 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
@@ -112,6 +113,32 @@ class FrontendServletTest {
         assertEquals(2, servlet.getRoutes().size());
         servlet.setRoutes("/", "/addstore", "/statistics", "/login");
         assertEquals(4, servlet.getRoutes().size());
+    }
+
+    static class FrontendServletThatDoesProcessing extends FrontendServlet {
+        private static final long serialVersionUID = -1123678063196681870L;
+
+        @Override
+        protected boolean thisIsAResourceThatShouldBeProcessed(HttpServletRequest request, String pathInfo, String resource, String contentType) {
+            return true;
+        }
+
+    }
+
+    @Test
+    void testProcessResource() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setPathInfo("/");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        MockLogService logservice = new MockLogService();
+        FrontendServlet servlet = new FrontendServletThatDoesProcessing();
+        servlet.setLogService(logservice);
+
+        servlet.doGet(request, response);
+        assertEquals(SC_NOT_IMPLEMENTED, response.getErrorCode());
+        assertEquals("text/plain", response.getContentType());
+        String responseBody = response.getOutputStreamContent();
+        assertThat(responseBody).contains("Processing of content not implemented");
     }
 
 }
