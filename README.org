@@ -14,6 +14,7 @@ Servlet and filter classes that are intended to be inherited to cut down on boil
 
 | Date                   | Version | Comment                                                                                   |
 |------------------------+---------+-------------------------------------------------------------------------------------------|
+| <2020-09-12 Sat 16:30> |   1.3.2 | Fix [[https://github.com/steinarb/servlet/issues/3][issue #3]] by requiring package from jersey-inject-hk2                                  |
 | <2020-09-11 Fri 22:25> |   1.3.1 | Does not pull in servicemix javax.inject at runtime                                       |
 | <2020-07-31 Fri 13:07> |   1.3.0 | Fix [[https://github.com/steinarb/servlet/issues/2][issue #2]] in FrontendServlet, add content-type for .ico files                          |
 | <2020-07-29 Wed 16:12> |   1.2.0 | Fix [[https://github.com/steinarb/servlet/issues/1][issue #1]] in FrontendServlet                                                           |
@@ -38,7 +39,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.frontend</artifactId>
-   <version>1.3.1</version>
+   <version>1.3.2</version>
   </dependency>
 #+end_src
 
@@ -48,7 +49,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
       <dependency>
        <groupId>no.priv.bang.servlet</groupId>
        <artifactId>servlet.frontend</artifactId>
-       <version>1.3.1</version>
+       <version>1.3.2</version>
        <scope>provided</scope>
       </dependency>
     #+end_src
@@ -112,7 +113,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.jersey</artifactId>
-   <version>1.3.1</version>
+   <version>1.3.2</version>
   </dependency>
 #+end_src
 
@@ -122,7 +123,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
       <dependency>
        <groupId>no.priv.bang.servlet</groupId>
        <artifactId>servlet.jersey</artifactId>
-       <version>1.3.1</version>
+       <version>1.3.2</version>
        <scope>provided</scope>
       </dependency>
     #+end_src
@@ -165,7 +166,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
  4. Add a runtime dependency to the bundle project's template feature repository (i.e. =src/main/feature/feature.xml= in the bundle project):
     #+begin_src xml
       <features>
-       <repository>mvn:no.priv.bang.servlet/servlet/1.3.1/xml/features</repository>
+       <repository>mvn:no.priv.bang.servlet/servlet/1.3.2/xml/features</repository>
        <feature name="my-servlet">
         <feature>jersey-servlet</feature>
        </feature>
