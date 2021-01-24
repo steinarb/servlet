@@ -31,7 +31,7 @@
     <dependencies>
         <dependency>
             <groupId>no.priv.bang.karaf</groupId>
-            <artifactId>jersey-karaf-feature</artifactId>
+            <artifactId>jersey</artifactId>
             <version>${jersey-feature.version}</version>
             <type>xml</type>
             <classifier>features</classifier>
