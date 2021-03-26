@@ -34,16 +34,13 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../jacoco-coverage-report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <karaf.version>4.2.11</karaf.version>
         <junit.jupiter.version>5.7.1</junit.jupiter.version>
-        <junit.version>4.13.1</junit.version> <!-- pax exam can't use junit 5 yet -->
-        <paxexam.version>4.13.4</paxexam.version>
         <mockrunner.version>2.0.4</mockrunner.version>
         <maven.bundle.plugin.version>3.5.1</maven.bundle.plugin.version>
-        <karaf.version>4.2.10</karaf.version>
         <osgi.version>6.0.0</osgi.version>
         <osgi.service.version>1.3.0</osgi.service.version>
         <osgi.log.version>1.3.0</osgi.log.version>
-        <servlet-api.version>3.1.0</servlet-api.version>
         <service-adapters.version>1.0.1</service-adapters.version>
         <jersey-feature.version>1.8.1</jersey-feature.version>
         <jersey.version>2.33</jersey.version>
@@ -52,6 +49,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.apache.karaf</groupId>
+                <artifactId>karaf-bom</artifactId>
+                <version>${karaf.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
@@ -105,12 +109,6 @@
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.service.log</artifactId>
                 <version>${osgi.log.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>${servlet-api.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
