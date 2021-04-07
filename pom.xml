@@ -41,7 +41,7 @@
         <osgi.version>7.0.0</osgi.version>
         <osgi.service.version>1.4.0</osgi.service.version>
         <osgi.log.version>${osgi.service.version}</osgi.log.version>
-        <service-adapters.version>1.0.1</service-adapters.version>
+        <service-adapters.version>1.1.0</service-adapters.version>
         <jersey-feature.version>1.8.1</jersey-feature.version>
         <jersey.version>2.33</jersey.version>
     </properties>
@@ -113,7 +113,7 @@
             </dependency>
             <dependency>
                 <groupId>no.priv.bang.osgi.service.adapters</groupId>
-                <artifactId>logservice</artifactId>
+                <artifactId>adapters.logservice</artifactId>
                 <version>${service-adapters.version}</version>
                 <scope>provided</scope>
             </dependency>
