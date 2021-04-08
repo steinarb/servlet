@@ -36,7 +36,12 @@ public class ServletIntegrationTest extends KarafTestSupport {
 
     @Configuration
     public Option[] config() {
-        final MavenArtifactUrlReference servletFeatureRepo = maven().groupId("no.priv.bang.servlet").artifactId("karaf").version("LATEST").type("xml").classifier("features");
+        final MavenArtifactUrlReference servletFeatureRepo = maven()
+            .groupId("no.priv.bang.servlet")
+            .artifactId("karaf")
+            .version("LATEST")
+            .type("xml")
+            .classifier("features");
         Option[] options = new Option[] {
             features(servletFeatureRepo)
         };
