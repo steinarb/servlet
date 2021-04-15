@@ -31,15 +31,11 @@
             <groupId>no.priv.bang.servlet</groupId>
             <artifactId>servlet.jersey</artifactId>
             <version>${project.version}</version>
-            <type>xml</type>
-            <classifier>features</classifier>
         </dependency>
         <dependency>
             <groupId>no.priv.bang.servlet</groupId>
             <artifactId>servlet.frontend</artifactId>
             <version>${project.version}</version>
-            <type>xml</type>
-            <classifier>features</classifier>
         </dependency>
     </dependencies>
 
