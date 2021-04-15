@@ -29,8 +29,7 @@
             <groupId>no.priv.bang.servlet</groupId>
             <artifactId>karaf</artifactId>
             <version>${project.version}</version>
-            <type>xml</type>
-            <classifier>features</classifier>
+            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
