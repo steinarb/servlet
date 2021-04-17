@@ -34,6 +34,7 @@
         <module>karaf</module>
         <module>servlet.tests</module>
         <module>jacoco-coverage-report</module>
+        <module>servlet-bom</module>
     </modules>
 
     <properties>
