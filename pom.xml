@@ -39,8 +39,7 @@
     <properties>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../jacoco-coverage-report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <service-adapters.version>1.1.1</service-adapters.version>
-        <jersey-feature.version>1.8.1</jersey-feature.version>
-        <jersey.version>2.33</jersey.version>
+        <jersey-feature.version>1.8.2</jersey-feature.version>
     </properties>
 
 
@@ -61,6 +60,13 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>no.priv.bang.karaf</groupId>
+                <artifactId>jersey-feature-bom</artifactId>
+                <version>${jersey-feature.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>no.priv.bang.osgi.service.adapters</groupId>
                 <artifactId>service-mocks</artifactId>
                 <version>${service-adapters.version}</version>
@@ -70,24 +76,6 @@
                 <groupId>no.priv.bang.osgi.service.adapters</groupId>
                 <artifactId>adapters.logservice</artifactId>
                 <version>${service-adapters.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jersey.containers</groupId>
-                <artifactId>jersey-container-servlet</artifactId>
-                <version>${jersey.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jersey.inject</groupId>
-                <artifactId>jersey-hk2</artifactId>
-                <version>${jersey.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jersey.media</groupId>
-                <artifactId>jersey-media-json-jackson</artifactId>
-                <version>${jersey.version}</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>
