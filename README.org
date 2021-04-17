@@ -14,6 +14,7 @@ Servlet and filter classes that are intended to be inherited to cut down on boil
 
 | Date                   | Version | Comment                                                                                   |
 |------------------------+---------+-------------------------------------------------------------------------------------------|
+| <2021-04-17 Sat 21:34> |   1.5.2 | Provide maven Bill of Materials to simplify usage                                         |
 | <2021-04-15 Thu 20:40> |   1.5.1 | Get maven dependencies and maven plugin config from a parent POM                          |
 | <2021-04-12 Mon 18:10> |   1.5.0 | Built with karaf 4.3.0 and OSGi 7                                                         |
 | <2021-01-24 Sun 21:25> |   1.4.0 | Use jersey 2.33 and jackson 2.12.1                                                        |
@@ -42,7 +43,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.frontend</artifactId>
-   <version>1.5.1</version>
+   <version>1.5.2</version>
   </dependency>
 #+end_src
 
@@ -52,7 +53,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
       <dependency>
        <groupId>no.priv.bang.servlet</groupId>
        <artifactId>servlet.frontend</artifactId>
-       <version>1.5.1</version>
+       <version>1.5.2</version>
        <scope>provided</scope>
       </dependency>
     #+end_src
@@ -74,7 +75,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
  3. Add a runtime dependency to the bundle project's template feature repository (i.e. =src/main/feature/feature.xml= in the bundle project):
     #+begin_src xml
       <features>
-       <repository>mvn:no.priv.bang.servlet/karaf/1.5.1/xml/features</repository>
+       <repository>mvn:no.priv.bang.servlet/karaf/1.5.2/xml/features</repository>
        <feature name="my-servlet">
         <feature>frontend-servlet</feature>
        </feature>
@@ -116,7 +117,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.jersey</artifactId>
-   <version>1.5.1</version>
+   <version>1.5.2</version>
   </dependency>
 #+end_src
 
@@ -126,7 +127,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
       <dependency>
        <groupId>no.priv.bang.servlet</groupId>
        <artifactId>servlet.jersey</artifactId>
-       <version>1.5.1</version>
+       <version>1.5.2</version>
        <scope>provided</scope>
       </dependency>
     #+end_src
@@ -169,7 +170,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
  4. Add a runtime dependency to the bundle project's template feature repository (i.e. =src/main/feature/feature.xml= in the bundle project):
     #+begin_src xml
       <features>
-       <repository>mvn:no.priv.bang.servlet/karaf/1.5.1/xml/features</repository>
+       <repository>mvn:no.priv.bang.servlet/karaf/1.5.2/xml/features</repository>
        <feature name="my-servlet">
         <feature>jersey-servlet</feature>
        </feature>
