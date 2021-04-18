@@ -39,7 +39,7 @@
 
     <properties>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../jacoco-coverage-report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <service-adapters.version>1.1.1</service-adapters.version>
+        <service-adapters.version>1.1.2</service-adapters.version>
         <jersey-feature.version>1.8.2</jersey-feature.version>
     </properties>
 
@@ -69,15 +69,10 @@
             </dependency>
             <dependency>
                 <groupId>no.priv.bang.osgi.service.adapters</groupId>
-                <artifactId>service-mocks</artifactId>
+                <artifactId>adapters-bom</artifactId>
                 <version>${service-adapters.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>no.priv.bang.osgi.service.adapters</groupId>
-                <artifactId>adapters.logservice</artifactId>
-                <version>${service-adapters.version}</version>
-                <scope>provided</scope>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
