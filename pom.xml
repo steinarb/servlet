@@ -31,7 +31,6 @@
     <modules>
         <module>servlet.frontend</module>
         <module>servlet.jersey</module>
-        <module>karaf</module>
         <module>servlet.tests</module>
         <module>jacoco-coverage-report</module>
         <module>servlet-bom</module>

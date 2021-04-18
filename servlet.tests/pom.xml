@@ -27,9 +27,13 @@
     <dependencies>
         <dependency>
             <groupId>no.priv.bang.servlet</groupId>
-            <artifactId>karaf</artifactId>
+            <artifactId>servlet.frontend</artifactId>
             <version>${project.version}</version>
-            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>no.priv.bang.servlet</groupId>
+            <artifactId>servlet.jersey</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

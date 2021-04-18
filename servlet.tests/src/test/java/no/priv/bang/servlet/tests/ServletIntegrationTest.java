@@ -36,21 +36,14 @@ public class ServletIntegrationTest extends KarafTestSupport {
 
     @Configuration
     public Option[] config() {
-        final MavenArtifactUrlReference frontendServletFeatureRepo = maven()
-                .groupId("no.priv.bang.servlet")
-                .artifactId("servlet.jersey")
-                .version("LATEST")
-                .type("xml")
-                .classifier("features");
-        final MavenArtifactUrlReference jerseyServletFeatureRepo1 = maven()
-                .groupId("no.priv.bang.servlet")
-                .artifactId("servlet.frontend")
-                .version("LATEST")
-                .type("xml")
-                .classifier("features");
+        final MavenArtifactUrlReference servletFeatureRepo = maven()
+            .groupId("no.priv.bang.servlet")
+            .artifactId("karaf")
+            .version("LATEST")
+            .type("xml")
+            .classifier("features");
         Option[] options = new Option[] {
-                features(jerseyServletFeatureRepo1),
-                features(frontendServletFeatureRepo)
+            features(servletFeatureRepo)
         };
         return Stream.of(super.config(), options).flatMap(Stream::of).toArray(Option[]::new);
     }
