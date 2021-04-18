@@ -21,7 +21,7 @@
     </parent>
     <groupId>no.priv.bang.servlet</groupId>
     <artifactId>servlet</artifactId>
-    <version>1.5.3</version>
+    <version>1.6.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -168,7 +168,7 @@
     <scm>
         <url>https://github.com/steinarb/servlet</url>
         <connection>scm:git:https://github.com/steinarb/servlet.git</connection>
-        <tag>servlet-1.5.3</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
