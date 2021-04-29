@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Steinar Bang
+ * Copyright 2019-2021 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import static javax.servlet.http.HttpServletResponse.*;
 
 import org.osgi.service.log.LogService;
 
-import no.priv.bang.osgi.service.adapters.logservice.LogServiceAdapter;
+import no.priv.bang.osgi.service.adapters.logservice.LoggerAdapter;
 
 /**
  * This is a servlet that's intended to be a base class for a DS component
@@ -51,7 +51,7 @@ import no.priv.bang.osgi.service.adapters.logservice.LogServiceAdapter;
 public class FrontendServlet extends HttpServlet{
     private static final long serialVersionUID = -7910979327492294627L;
     private final ArrayList<String> routes = new ArrayList<>(Arrays.asList("/", "/login"));
-    private final LogServiceAdapter logservice = new LogServiceAdapter();
+    private final LoggerAdapter logger = new LoggerAdapter(getClass());
 
     public List<String> getRoutes() {
         return routes;
@@ -63,7 +63,7 @@ public class FrontendServlet extends HttpServlet{
     }
 
     public void setLogService(LogService logservice) {
-        this.logservice.setLogService(logservice);
+        this.logger.setLogService(logservice);
     }
 
     @Override
@@ -92,12 +92,12 @@ public class FrontendServlet extends HttpServlet{
                     }
 
                     String message = String.format("Resource \"%s\" not found on the classpath", resource);
-                    logservice.log(LogService.LOG_ERROR, message);
+                    logger.error(message);
                     response.sendError(SC_NOT_FOUND, message);
                 }
             }
         } catch (IOException e) {
-            logservice.log(LogService.LOG_ERROR, "Frontend servlet caught exception ", e);
+            logger.error("Frontend servlet caught exception ", e);
             response.setStatus(SC_INTERNAL_SERVER_ERROR); // Report internal server error
         }
     }

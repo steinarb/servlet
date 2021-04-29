@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Steinar Bang
+ * Copyright 2019-2021 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.WebConfig;
 import org.osgi.service.log.LogService;
 
-import no.priv.bang.osgi.service.adapters.logservice.LogServiceAdapter;
+import no.priv.bang.osgi.service.adapters.logservice.LoggerAdapter;
 
 /**
  * This is a servlet that's intended to be a base class for a DS component
@@ -47,7 +47,7 @@ import no.priv.bang.osgi.service.adapters.logservice.LogServiceAdapter;
  */
 public class JerseyServlet extends ServletContainer {
     private static final long serialVersionUID = -1314568939940495758L;
-    private final LogServiceAdapter logservice = new LogServiceAdapter();
+    private final LoggerAdapter logger = new LoggerAdapter(getClass());
     private final String defaultResourcePackage = getClass().getPackage().getName() + ".resources";
     private final Map<Class<?>, Object> injectedServices = new HashMap<>();
 
@@ -78,7 +78,7 @@ public class JerseyServlet extends ServletContainer {
      * @param logservice an OSGi {@link LogService}
      */
     public void setLogService(LogService logservice) {
-        this.logservice.setLogService(logservice);
+        this.logger.setLogService(logservice);
         addInjectedOsgiService(LogService.class, logservice);
     }
 
@@ -100,7 +100,7 @@ public class JerseyServlet extends ServletContainer {
         reload(copyOfExistingConfig);
         Map<String, Object> configProperties = getConfiguration().getProperties();
         Set<Class<?>> classes = getConfiguration().getClasses();
-        logservice.log(LogService.LOG_INFO, String.format("Jersey servlet initialized with WebConfig, with resources: %s  and config params: %s", classes.toString(), configProperties.toString()));
+        logger.info("Jersey servlet initialized with WebConfig, with resources: {}  and config params: {}", classes.toString(), configProperties.toString());
     }
 
     private void setJerseyResourcePackagesDefaultIfNotSetElsewhere(boolean hasProviderPackages, ResourceConfig config) {
