@@ -16,7 +16,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>no.priv.bang.servlet</groupId>
-        <artifactId>servlet</artifactId>
+        <artifactId>servlet-parent</artifactId>
         <version>1.6.0-SNAPSHOT</version>
     </parent>
     <artifactId>servlet-bom</artifactId>

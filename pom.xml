@@ -20,7 +20,7 @@
         <version>1.0.9</version>
     </parent>
     <groupId>no.priv.bang.servlet</groupId>
-    <artifactId>servlet</artifactId>
+    <artifactId>servlet-parent</artifactId>
     <version>1.6.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
@@ -29,9 +29,7 @@
     <description>Various servets and filters</description>
 
     <modules>
-        <module>servlet.frontend</module>
-        <module>servlet.jersey</module>
-        <module>servlet.tests</module>
+        <module>servlet</module>
         <module>jacoco-coverage-report</module>
         <module>servlet-bom</module>
     </modules>
@@ -39,42 +37,8 @@
     <properties>
         <service-adapters.version>1.1.3</service-adapters.version>
         <jersey-feature.version>1.8.3</jersey-feature.version>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../jacoco-coverage-report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../../jacoco-coverage-report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
-
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.karaf</groupId>
-                <artifactId>karaf-bom</artifactId>
-                <version>${karaf.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit</groupId>
-                <artifactId>junit-bom</artifactId>
-                <version>${junit.jupiter.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>no.priv.bang.karaf</groupId>
-                <artifactId>jersey-feature-bom</artifactId>
-                <version>${jersey-feature.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>no.priv.bang.osgi.service.adapters</groupId>
-                <artifactId>adapters-bom</artifactId>
-                <version>${service-adapters.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>
