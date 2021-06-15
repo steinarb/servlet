@@ -53,16 +53,42 @@ To use the servlet in an application built with maven, add the maven dependency:
 #+end_src
 
 To use the servlet in a webapp running in the apache karaf web whiteboard apache:
- 1. Add a maven dependency
+ 1. Import the Bill of Materials (BoM) into the project's dependencyManagement
     #+begin_src xml
-      <dependency>
-       <groupId>no.priv.bang.servlet</groupId>
-       <artifactId>servlet.frontend</artifactId>
-       <version>1.5.7</version>
-       <scope>provided</scope>
-      </dependency>
+      <build>
+       <dependencyManagement>
+        <dependencies>
+         <dependency>
+          <groupId>no.priv.bang.servlet</groupId>
+          <artifactId>servlet-bom</artifactId>
+          <version>1.5.7</version>
+          <type>pom</type>
+          <scope>import</scope>
+         </dependency>
+        </dependencies>
+       </dependencyManagement>
+      </build>
     #+end_src
- 2. Create an OSGi bundle containing a DS component registering with the web whiteboard
+ 2. Create a maven project building an OSGi bundle, and add the following maven dependencies to the project (the version of the dependencies, is provided by the BoM import)
+    #+begin_src xml
+      <build>
+       <dependencies>
+        <dependency>
+         <groupId>no.priv.bang.servlet</groupId>
+         <artifactId>servlet.frontend</artifactId>
+         <scope>provided</scope>
+        </dependency>
+        <dependency>
+         <groupId>no.priv.bang.servlet</groupId>
+         <artifactId>servlet.frontend</artifactId>
+         <type>xml</type>
+         <classifier>features</classifier>
+        </dependency>
+       </dependencies>
+      </build>
+    #+end_src
+    The <provided> scope dependency provides compile time dependency for the bundle, and the xml classifier dependencies pulls the karaf runtime dependency of the sevlet into the feature for the OSGi bundle project
+ 3. In the OSGi bundle project, add a DS component registering with the web whiteboard
     #+begin_src java
       @Component(service={Servlet.class}, property={"alias=/myapp"})
       public class ReactServlet extends FrontendServlet {
@@ -76,15 +102,6 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
               super.setLogService(logservice);
           }
       }
-    #+end_src
- 3. Add a runtime dependency to the bundle project's template feature repository (i.e. =src/main/feature/feature.xml= in the bundle project):
-    #+begin_src xml
-      <features>
-       <repository>mvn:no.priv.bang.servlet/karaf/1.5.7/xml/features</repository>
-       <feature name="my-servlet">
-        <feature>frontend-servlet</feature>
-       </feature>
-      </features>
     #+end_src
 
 **** Processing content
@@ -127,16 +144,42 @@ To use the servlet in an application built with maven, add the maven dependency:
 #+end_src
 
 To use the servlet in a webapp running in the apache karaf web whiteboard apache:
- 1. Add a maven dependency
+ 1. Import the Bill of Materials (BoM) into the project's dependencyManagement
     #+begin_src xml
-      <dependency>
-       <groupId>no.priv.bang.servlet</groupId>
-       <artifactId>servlet.jersey</artifactId>
-       <version>1.5.7</version>
-       <scope>provided</scope>
-      </dependency>
+      <build>
+       <dependencyManagement>
+        <dependencies>
+         <dependency>
+          <groupId>no.priv.bang.servlet</groupId>
+          <artifactId>servlet-bom</artifactId>
+          <version>1.5.7</version>
+          <type>pom</type>
+          <scope>import</scope>
+         </dependency>
+        </dependencies>
+       </dependencyManagement>
+      </build>
     #+end_src
- 2. Create an OSGi bundle containing a DS component registering with the web whiteboard.
+ 2. Create a maven project building an OSGi bundle, and add the following maven dependencies to the project (the version of the dependencies, is provided by the BoM import)
+    #+begin_src xml
+      <build>
+       <dependencies>
+        <dependency>
+         <groupId>no.priv.bang.servlet</groupId>
+         <artifactId>servlet.jersey</artifactId>
+         <scope>provided</scope>
+        </dependency>
+        <dependency>
+         <groupId>no.priv.bang.servlet</groupId>
+         <artifactId>servlet.jersey</artifactId>
+         <type>pom</type>
+         <scope>import</scope>
+        </dependency>
+       </dependencies>
+      </build>
+    #+end_src
+    The <provided> scope dependency provides compile time dependency for the bundle, and the xml classifier dependencies pulls the karaf runtime dependency of the sevlet into the feature for the OSGi bundle project
+ 3. In the OSGi bundle project, add a DS component registering with the web whiteboard.
     #+begin_src java
       package no.priv.bang.servlet.jersey.test;
 
@@ -155,7 +198,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
       }
     #+end_src
     /Note/! [[http://javadox.com/org.osgi/osgi.cmpn/6.0.0/org/osgi/service/log/LogService.html][The OSGi LogService]] must be added by a separate method, since the LogService is used by the JerseyServlet itself (as well as being added to HK2, which makes it possible to use LogService in Jersey resources).
- 3. Add resources implementing REST API endpoints in the .resources sub-package of the servlet's package, and use @Inject to inject the OSGi services that JerseyServlet adds to the HK2 dependency injection container:
+ 4. Add resources implementing REST API endpoints in the .resources sub-package of the servlet's package, and use @Inject to inject the OSGi services that JerseyServlet adds to the HK2 dependency injection container:
     #+begin_src java
       package no.priv.bang.servlet.jersey.test.resources;
 
@@ -171,15 +214,6 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
               return service.hello();
           }
       }
-    #+end_src
- 4. Add a runtime dependency to the bundle project's template feature repository (i.e. =src/main/feature/feature.xml= in the bundle project):
-    #+begin_src xml
-      <features>
-       <repository>mvn:no.priv.bang.servlet/karaf/1.5.7/xml/features</repository>
-       <feature name="my-servlet">
-        <feature>jersey-servlet</feature>
-       </feature>
-      </features>
     #+end_src
 
 ** License
