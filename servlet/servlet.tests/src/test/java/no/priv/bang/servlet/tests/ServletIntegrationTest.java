@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Steinar Bang
+ * Copyright 2021-2022 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,14 +36,21 @@ public class ServletIntegrationTest extends KarafTestSupport {
 
     @Configuration
     public Option[] config() {
-        final MavenArtifactUrlReference servletFeatureRepo = maven()
-            .groupId("no.priv.bang.servlet")
-            .artifactId("karaf")
-            .version("LATEST")
-            .type("xml")
-            .classifier("features");
+        final MavenArtifactUrlReference jerseyServletFeatureRepo = maven()
+                .groupId("no.priv.bang.servlet")
+                .artifactId("servlet.jersey")
+                .version("LATEST")
+                .type("xml")
+                .classifier("features");
+        final MavenArtifactUrlReference frontendServletFeatureRepo = maven()
+                .groupId("no.priv.bang.servlet")
+                .artifactId("servlet.frontend")
+                .version("LATEST")
+                .type("xml")
+                .classifier("features");
         Option[] options = new Option[] {
-            features(servletFeatureRepo)
+            features(jerseyServletFeatureRepo),
+            features(frontendServletFeatureRepo)
         };
         return Stream.of(super.config(), options).flatMap(Stream::of).toArray(Option[]::new);
     }
