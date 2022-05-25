@@ -108,7 +108,17 @@
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>osgi.cmpn</artifactId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.log</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.http</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -120,7 +130,14 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Import-Package>org.glassfish.jersey.inject.hk2,*</Import-Package>
+                        <Export-Package>
+                            no.priv.bang.servlet.jersey;uses:="javax.servlet,org.glassfish.jersey.servlet,org.osgi.service.log";version="1.4.0"
+                        </Export-Package>
+                        <Import-Package>
+                            org.glassfish.jersey.inject.hk2,
+                            org.osgi.service.log;version="[1.4,2)",
+                            *
+                        </Import-Package>
                     </instructions>
                 </configuration>
             </plugin>
