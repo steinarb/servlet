@@ -146,7 +146,7 @@ public class FrontendServlet extends HttpServlet{
 
         String extension = resource.substring(resource.lastIndexOf('.') + 1);
         if ("js".equals(extension)) {
-            return "application/javascript";
+            return "text/javascript";
         }
 
         if ("css".equals(extension)) {
