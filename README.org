@@ -4,11 +4,24 @@ Servlet and filter classes that are intended to be inherited to cut down on boil
 
 ** Status of the project
 
-[[https://travis-ci.org/steinarb/servlet][file:https://travis-ci.org/steinarb/servlet.svg?branch=master]] [[https://sonarcloud.io/dashboard?id=no.priv.bang.servlet%3Aservlet][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.servlet%3Aservlet&metric=alert_status#.svg]] [[https://maven-badges.herokuapp.com/maven-central/no.priv.bang.servlet/servlet][file:https://maven-badges.herokuapp.com/maven-central/no.priv.bang.servlet/servlet/badge.svg]] [[https://www.javadoc.io/doc/no.priv.bang.servlet/servlet][file:https://www.javadoc.io/badge/no.priv.bang.servlet/servlet.svg]]
+[[https://github.com/steinarb/servlet/actions/workflows/servlet-maven-ci-build.yml][file:https://github.com/steinarb/servlet/actions/workflows/servlet-maven-ci-build.yml/badge.svg]]
+[[https://coveralls.io/github/steinarb/servlet][file:https://coveralls.io/repos/github/steinarb/servlet/badge.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_servlet&metric=alert_status#.svg]]
+[[https://maven-badges.herokuapp.com/maven-central/no.priv.bang.servlet/servlet][file:https://maven-badges.herokuapp.com/maven-central/no.priv.bang.servlet/servlet/badge.svg]]
+[[https://www.javadoc.io/doc/no.priv.bang.servlet/servlet][file:https://www.javadoc.io/badge/no.priv.bang.servlet/servlet.svg]]
 
-*** Sonarqube
+[[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/images/project_badges/sonarcloud-white.svg]]
 
-[[https://sonarcloud.io/dashboard?id=no.priv.bang.servlet%3Aservlet][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.servlet%3Aservlet&metric=ncloc#.svg]] [[https://sonarcloud.io/dashboard?id=no.priv.bang.servlet%3Aservlet][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.servlet%3Aservlet&metric=bugs#.svg]] [[https://sonarcloud.io/dashboard?id=no.priv.bang.servlet%3Aservlet][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.servlet%3Aservlet&metric=vulnerabilities#.svg]] [[https://sonarcloud.io/dashboard?id=no.priv.bang.servlet%3Aservlet][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.servlet%3Aservlet&metric=code_smells#.svg]] [[https://sonarcloud.io/dashboard?id=no.priv.bang.servlet%3Aservlet][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.servlet%3Aservlet&metric=coverage#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_servlet&metric=sqale_index#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_servlet&metric=coverage#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_servlet&metric=ncloc#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_servlet&metric=code_smells#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_servlet&metric=sqale_rating#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_servlet&metric=security_rating#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_servlet&metric=bugs#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_servlet&metric=vulnerabilities#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_servlet&metric=duplicated_lines_density#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_servlet&metric=reliability_rating#.svg]]
 
 ** Release history
 
