@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021 Steinar Bang
+ * Copyright 2019-2023 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,9 +91,7 @@ public class FrontendServlet extends HttpServlet{
                         return;
                     }
 
-                    String message = String.format("Resource \"%s\" not found on the classpath", resource);
-                    logger.error(message);
-                    response.sendError(SC_NOT_FOUND, message);
+                    handleResourceNotFound(response, resource);
                 }
             }
         } catch (IOException e) {
@@ -138,6 +136,35 @@ public class FrontendServlet extends HttpServlet{
         }
     }
 
+
+    /**
+     * This is a method that will be called when no classpath resource or frontend route matches
+     * the request path.
+     *
+     * This method can be replaced in a subclass that should return a custom not found response.
+     *
+     * @param response Implementors of this method needs to set content type, status code and body in the response object
+     * @param request the request as received by the servlet framework
+     */
+    protected void handleResourceNotFound(HttpServletResponse response, String resource) throws IOException {
+        String message = String.format("Resource \"%s\" not found on the classpath", resource);
+        logger.error(message);
+        response.sendError(SC_NOT_FOUND, message);
+    }
+
+    /**
+     * Utility method to copy the content of an input stream into an output stream.
+     *
+     * @param input A stream containing the content to set into the response
+     * @param output a stream used to set the body of an HTTP response
+     */
+    protected void copyStream(InputStream input, ServletOutputStream output) throws IOException {
+        int c;
+        while((c = input.read()) != -1) {
+            output.write(c);
+        }
+    }
+
     String guessContentTypeFromResourceName(String resource) {
         String contentType = URLConnection.guessContentTypeFromName(resource);
         if (contentType != null) {
@@ -170,13 +197,6 @@ public class FrontendServlet extends HttpServlet{
 
     private void addSlashToServletPath(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.sendRedirect(String.format("%s/", request.getRequestURL().toString()));
-    }
-
-    private void copyStream(InputStream input, ServletOutputStream output) throws IOException {
-        int c;
-        while((c = input.read()) != -1) {
-            output.write(c);
-        }
     }
 
 }
