@@ -144,7 +144,7 @@ public class FrontendServlet extends HttpServlet{
      * This method can be replaced in a subclass that should return a custom not found response.
      *
      * @param response Implementors of this method needs to set content type, status code and body in the response object
-     * @param request the request as received by the servlet framework
+     * @param resource the path to the requested, and missing, resource
      */
     protected void handleResourceNotFound(HttpServletResponse response, String resource) throws IOException {
         String message = String.format("Resource \"%s\" not found on the classpath", resource);
