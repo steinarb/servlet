@@ -78,10 +78,15 @@ public class FrontendServlet extends HttpServlet{
 
             String resource = findResourceFromPathInfo(pathInfo);
             String contentType = guessContentTypeFromResourceName(resource);
+            if (shouldNotBeCached(resource)) {
+                addCacheControlAndExpiresHeaders(response);
+            }
+
             if (thisIsAResourceThatShouldBeProcessed(request, pathInfo, resource, contentType)) {
                 processResource(response, request, pathInfo, resource, contentType);
                 return;
             }
+
             response.setContentType(contentType);
             try(ServletOutputStream responseBody = response.getOutputStream()) {
                 try(InputStream resourceFromClasspath = getClass().getClassLoader().getResourceAsStream(resource)) {
@@ -98,6 +103,15 @@ public class FrontendServlet extends HttpServlet{
             logger.error("Frontend servlet caught exception ", e);
             response.setStatus(SC_INTERNAL_SERVER_ERROR); // Report internal server error
         }
+    }
+
+    boolean shouldNotBeCached(String resource) {
+        return "index.html".equals(resource);
+    }
+
+    private void addCacheControlAndExpiresHeaders(HttpServletResponse response) {
+        response.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+        response.setDateHeader("Expires", 0);
     }
 
     /**

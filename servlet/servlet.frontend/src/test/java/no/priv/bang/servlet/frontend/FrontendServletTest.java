@@ -45,6 +45,8 @@ class FrontendServletTest {
         servlet.doGet(request, response);
         assertEquals(SC_OK, response.getStatus());
         assertEquals("text/html", response.getContentType());
+        assertThat(response.getHeader("Cache-Control")).contains("private, no-store, no-cache, must-revalidate");
+        assertThat(response.getHeader("Expires")).contains("Thu, 1 Jan 1970 00:00:00 GMT");
         String responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("bundle.js");
     }
@@ -61,6 +63,8 @@ class FrontendServletTest {
         servlet.doGet(request, response);
         assertEquals(SC_OK, response.getStatus());
         assertEquals("text/html", response.getContentType());
+        assertThat(response.getHeader("Cache-Control")).contains("private, no-store, no-cache, must-revalidate");
+        assertThat(response.getHeader("Expires")).contains("Thu, 1 Jan 1970 00:00:00 GMT");
         String responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("bundle.js");
     }
@@ -77,6 +81,8 @@ class FrontendServletTest {
         servlet.doGet(request, response);
         assertEquals(SC_OK, response.getStatus());
         assertEquals("text/css", response.getContentType());
+        assertThat(response.getHeader("Cache-Control")).isNull();
+        assertThat(response.getHeader("Expires")).isNull();
         String responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("table-fixed");
     }
@@ -93,6 +99,8 @@ class FrontendServletTest {
         servlet.doGet(request, response);
         assertEquals(SC_OK, response.getStatus());
         assertEquals("image/gif", response.getContentType());
+        assertThat(response.getHeader("Cache-Control")).isNull();
+        assertThat(response.getHeader("Expires")).isNull();
         String responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("GIF87");
     }
@@ -109,6 +117,8 @@ class FrontendServletTest {
         servlet.doGet(request, response);
         assertEquals(SC_OK, response.getStatus());
         assertEquals("image/png", response.getContentType());
+        assertThat(response.getHeader("Cache-Control")).isNull();
+        assertThat(response.getHeader("Expires")).isNull();
         String responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("PNG");
     }
@@ -184,6 +194,14 @@ class FrontendServletTest {
             return true;
         }
 
+    }
+
+    @Test
+    void testShouldNotBeCached() {
+        var servlet = new FrontendServlet();
+
+        assertFalse(servlet.shouldNotBeCached("app.css"));
+        assertTrue(servlet.shouldNotBeCached("index.html"));
     }
 
     @Test
