@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2022 Steinar Bang
+ * Copyright 2019-2023 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,6 +47,70 @@ class FrontendServletTest {
         assertEquals("text/html", response.getContentType());
         String responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("bundle.js");
+    }
+
+    @Test
+    void testGetRoute() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setPathInfo("/login");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        MockLogService logservice = new MockLogService();
+        FrontendServlet servlet = new FrontendServlet();
+        servlet.setLogService(logservice);
+
+        servlet.doGet(request, response);
+        assertEquals(SC_OK, response.getStatus());
+        assertEquals("text/html", response.getContentType());
+        String responseBody = response.getOutputStreamContent();
+        assertThat(responseBody).contains("bundle.js");
+    }
+
+    @Test
+    void testGetCss() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setPathInfo("app.css");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        MockLogService logservice = new MockLogService();
+        FrontendServlet servlet = new FrontendServlet();
+        servlet.setLogService(logservice);
+
+        servlet.doGet(request, response);
+        assertEquals(SC_OK, response.getStatus());
+        assertEquals("text/css", response.getContentType());
+        String responseBody = response.getOutputStreamContent();
+        assertThat(responseBody).contains("table-fixed");
+    }
+
+    @Test
+    void testGetGif() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setPathInfo("rv306.gif");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        MockLogService logservice = new MockLogService();
+        FrontendServlet servlet = new FrontendServlet();
+        servlet.setLogService(logservice);
+
+        servlet.doGet(request, response);
+        assertEquals(SC_OK, response.getStatus());
+        assertEquals("image/gif", response.getContentType());
+        String responseBody = response.getOutputStreamContent();
+        assertThat(responseBody).contains("GIF87");
+    }
+
+    @Test
+    void testGetPng() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setPathInfo("berglia.png");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        MockLogService logservice = new MockLogService();
+        FrontendServlet servlet = new FrontendServlet();
+        servlet.setLogService(logservice);
+
+        servlet.doGet(request, response);
+        assertEquals(SC_OK, response.getStatus());
+        assertEquals("image/png", response.getContentType());
+        String responseBody = response.getOutputStreamContent();
+        assertThat(responseBody).contains("PNG");
     }
 
     @Test

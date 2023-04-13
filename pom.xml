@@ -37,6 +37,9 @@
     <properties>
         <!-- Note: remember to manually update this property when upgrading adapters, because this project doesn't inherit bang-app-pom -->
         <service-adapters.version>1.2.0</service-adapters.version>
+        <sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+        <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S5976</sonar.issue.ignore.multicriteria.e1.ruleKey>
+        <sonar.issue.ignore.multicriteria.e1.resourceKey>**/FrontendServletTest.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../../jacoco-coverage-report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
