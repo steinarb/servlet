@@ -27,6 +27,7 @@ Servlet and filter classes that are intended to be inherited to cut down on boil
 
 | Date                   | Version | Comment                                                                                   |
 |------------------------+---------+-------------------------------------------------------------------------------------------|
+| <2023-04-26 Wed 00:12> |   1.6.7 | Use jersey-karaf-feature 1.9.5 and jackson 2.15.0                                         |
 | <2023-04-24 Mon 19:16> |   1.6.6 | Use jersey-karaf-feature 1.9.4, jersey 2.39.1 and jackson 2.14.2                          |
 | <2023-04-14 Fri 17:08> |   1.6.5 | Set cache-control and expires headers to avoid index.html caching of webapps              |
 | <2023-01-14 Sat 12:47> |   1.6.4 | Add overridable method for reporting not found errors to FrontendServlet                  |
@@ -69,7 +70,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.frontend</artifactId>
-   <version>1.6.6</version>
+   <version>1.6.7</version>
   </dependency>
 #+end_src
 
@@ -82,7 +83,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
          <dependency>
           <groupId>no.priv.bang.servlet</groupId>
           <artifactId>servlet-bom</artifactId>
-          <version>1.6.6</version>
+          <version>1.6.7</version>
           <type>pom</type>
           <scope>import</scope>
          </dependency>
@@ -160,7 +161,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.jersey</artifactId>
-   <version>1.6.6</version>
+   <version>1.6.7</version>
   </dependency>
 #+end_src
 
@@ -173,7 +174,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
          <dependency>
           <groupId>no.priv.bang.servlet</groupId>
           <artifactId>servlet-bom</artifactId>
-          <version>1.6.6</version>
+          <version>1.6.7</version>
           <type>pom</type>
           <scope>import</scope>
          </dependency>
