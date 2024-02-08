@@ -2,6 +2,7 @@
 .classpath
 .project
 .settings/
+/.metadata/
 /README.md
 /handlereg.db.liquibase/src/test/resources/olddata
 node_modules/
