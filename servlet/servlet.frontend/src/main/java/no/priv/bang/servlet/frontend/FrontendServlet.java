@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2023 Steinar Bang
+ * Copyright 2019-2024 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@ public class FrontendServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String pathInfo = request.getPathInfo();
+        var pathInfo = request.getPathInfo();
         try {
             if (pathInfo == null) {
                 // Browsers won't redirect to bundle.js if the servlet path doesn't end with a "/"
@@ -76,8 +76,8 @@ public class FrontendServlet extends HttpServlet{
                 return;
             }
 
-            String resource = findResourceFromPathInfo(pathInfo);
-            String contentType = guessContentTypeFromResourceName(resource);
+            var resource = findResourceFromPathInfo(pathInfo);
+            var contentType = guessContentTypeFromResourceName(resource);
             if (shouldNotBeCached(resource)) {
                 addCacheControlAndExpiresHeaders(response);
             }
@@ -88,8 +88,8 @@ public class FrontendServlet extends HttpServlet{
             }
 
             response.setContentType(contentType);
-            try(ServletOutputStream responseBody = response.getOutputStream()) {
-                try(InputStream resourceFromClasspath = getClass().getClassLoader().getResourceAsStream(resource)) {
+            try(var responseBody = response.getOutputStream()) {
+                try(var resourceFromClasspath = getClass().getClassLoader().getResourceAsStream(resource)) {
                     if (resourceFromClasspath != null) {
                         copyStream(resourceFromClasspath, responseBody);
                         response.setStatus(SC_OK);
@@ -145,7 +145,7 @@ public class FrontendServlet extends HttpServlet{
         response.setStatus(SC_NOT_IMPLEMENTED);
         response.sendError(SC_NOT_IMPLEMENTED);
         response.setContentType("text/plain");
-        try (ServletOutputStream body = response.getOutputStream()) {
+        try (var body = response.getOutputStream()) {
             body.print("Processing of content not implemented");
         }
     }
@@ -161,7 +161,7 @@ public class FrontendServlet extends HttpServlet{
      * @param resource the path to the requested, and missing, resource
      */
     protected void handleResourceNotFound(HttpServletResponse response, String resource) throws IOException {
-        String message = String.format("Resource \"%s\" not found on the classpath", resource);
+        var message = String.format("Resource \"%s\" not found on the classpath", resource);
         logger.error(message);
         response.sendError(SC_NOT_FOUND, message);
     }
@@ -180,12 +180,12 @@ public class FrontendServlet extends HttpServlet{
     }
 
     String guessContentTypeFromResourceName(String resource) {
-        String contentType = URLConnection.guessContentTypeFromName(resource);
+        var contentType = URLConnection.guessContentTypeFromName(resource);
         if (contentType != null) {
             return contentType;
         }
 
-        String extension = resource.substring(resource.lastIndexOf('.') + 1);
+        var extension = resource.substring(resource.lastIndexOf('.') + 1);
         if ("js".equals(extension)) {
             return "text/javascript";
         }

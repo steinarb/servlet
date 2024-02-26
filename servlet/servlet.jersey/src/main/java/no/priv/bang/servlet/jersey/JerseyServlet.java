@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021 Steinar Bang
+ * Copyright 2019-2024 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,6 @@ package no.priv.bang.servlet.jersey;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 
@@ -85,21 +82,21 @@ public class JerseyServlet extends ServletContainer {
     @Override
     protected void init(WebConfig webConfig) throws ServletException {
         super.init(webConfig);
-        boolean hasProviderPackages = getConfiguration().getPropertyNames().contains(ServerProperties.PROVIDER_PACKAGES);
-        ResourceConfig copyOfExistingConfig = new ResourceConfig(getConfiguration());
+        var hasProviderPackages = getConfiguration().getPropertyNames().contains(ServerProperties.PROVIDER_PACKAGES);
+        var copyOfExistingConfig = new ResourceConfig(getConfiguration());
         copyOfExistingConfig.register(new AbstractBinder() {
                 @SuppressWarnings("unchecked")
                 @Override
                 protected void configure() {
-                    for (Entry<Class<?>, Object> injectedService : injectedServices.entrySet()) {
+                    for (var injectedService : injectedServices.entrySet()) {
                         bind(injectedService.getValue()).to((Class<? super Object>) injectedService.getKey());
                     }
                 }
             });
         setJerseyResourcePackagesDefaultIfNotSetElsewhere(hasProviderPackages, copyOfExistingConfig);
         reload(copyOfExistingConfig);
-        Map<String, Object> configProperties = getConfiguration().getProperties();
-        Set<Class<?>> classes = getConfiguration().getClasses();
+        var configProperties = getConfiguration().getProperties();
+        var classes = getConfiguration().getClasses();
         logger.info("Jersey servlet initialized with WebConfig, with resources: {}  and config params: {}", classes.toString(), configProperties.toString());
     }
 
