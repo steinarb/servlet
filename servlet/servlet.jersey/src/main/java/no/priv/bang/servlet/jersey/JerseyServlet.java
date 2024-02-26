@@ -20,6 +20,7 @@ import java.util.Map;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 
+import org.apache.shiro.web.jaxrs.ShiroFeature;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
@@ -94,6 +95,7 @@ public class JerseyServlet extends ServletContainer {
                 }
             });
         setJerseyResourcePackagesDefaultIfNotSetElsewhere(hasProviderPackages, copyOfExistingConfig);
+        copyOfExistingConfig.register(ShiroFeature.class);
         reload(copyOfExistingConfig);
         var configProperties = getConfiguration().getProperties();
         var classes = getConfiguration().getClasses();
