@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2022 Steinar Bang
+ * Copyright 2019-2024 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,23 +39,23 @@ class JerseyServletTest {
 
     @Test
     void testGet() throws Exception {
-        MockHttpServletRequest request = buildGetUrl("hello");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        MockLogService logservice = new MockLogService();
-        ExampleJerseyServlet servlet = new ExampleJerseyServlet();
+        var request = buildGetUrl("hello");
+        var response = new MockHttpServletResponse();
+        var logservice = new MockLogService();
+        var servlet = new ExampleJerseyServlet();
         servlet.setLogService(logservice);
-        HelloService hello = mock(HelloService.class);
-        String helloString = "Hello world!";
+        var hello = mock(HelloService.class);
+        var helloString = "Hello world!";
         when(hello.hello()).thenReturn(helloString);
         servlet.setHelloService(hello);
         servlet.activate();
-        ServletConfig config = createEmptServletConfig();
+        var config = createEmptServletConfig();
         servlet.init(config);
 
         servlet.service(request, response);
         assertEquals(200, response.getStatus());
         assertEquals("text/plain", response.getContentType());
-        String responseBody = response.getOutputStreamContent();
+        var responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains(helloString);
     }
 

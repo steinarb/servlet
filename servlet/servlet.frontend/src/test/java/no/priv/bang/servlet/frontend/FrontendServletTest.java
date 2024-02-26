@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2023 Steinar Bang
+ * Copyright 2019-2024 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,11 +35,11 @@ class FrontendServletTest {
 
     @Test
     void testGet() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        var request = new MockHttpServletRequest();
         request.setPathInfo("/");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        MockLogService logservice = new MockLogService();
-        FrontendServlet servlet = new FrontendServlet();
+        var response = new MockHttpServletResponse();
+        var logservice = new MockLogService();
+        var servlet = new FrontendServlet();
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -47,17 +47,17 @@ class FrontendServletTest {
         assertEquals("text/html", response.getContentType());
         assertThat(response.getHeader("Cache-Control")).contains("private, no-store, no-cache, must-revalidate");
         assertThat(response.getHeader("Expires")).contains("Thu, 1 Jan 1970 00:00:00 GMT");
-        String responseBody = response.getOutputStreamContent();
+        var responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("bundle.js");
     }
 
     @Test
     void testGetRoute() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        var request = new MockHttpServletRequest();
         request.setPathInfo("/login");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        MockLogService logservice = new MockLogService();
-        FrontendServlet servlet = new FrontendServlet();
+        var response = new MockHttpServletResponse();
+        var logservice = new MockLogService();
+        var servlet = new FrontendServlet();
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -65,17 +65,17 @@ class FrontendServletTest {
         assertEquals("text/html", response.getContentType());
         assertThat(response.getHeader("Cache-Control")).contains("private, no-store, no-cache, must-revalidate");
         assertThat(response.getHeader("Expires")).contains("Thu, 1 Jan 1970 00:00:00 GMT");
-        String responseBody = response.getOutputStreamContent();
+        var responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("bundle.js");
     }
 
     @Test
     void testGetCss() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        var request = new MockHttpServletRequest();
         request.setPathInfo("app.css");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        MockLogService logservice = new MockLogService();
-        FrontendServlet servlet = new FrontendServlet();
+        var response = new MockHttpServletResponse();
+        var logservice = new MockLogService();
+        var servlet = new FrontendServlet();
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -83,17 +83,17 @@ class FrontendServletTest {
         assertEquals("text/css", response.getContentType());
         assertThat(response.getHeader("Cache-Control")).isNull();
         assertThat(response.getHeader("Expires")).isNull();
-        String responseBody = response.getOutputStreamContent();
+        var responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("table-fixed");
     }
 
     @Test
     void testGetGif() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        var request = new MockHttpServletRequest();
         request.setPathInfo("rv306.gif");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        MockLogService logservice = new MockLogService();
-        FrontendServlet servlet = new FrontendServlet();
+        var response = new MockHttpServletResponse();
+        var logservice = new MockLogService();
+        var servlet = new FrontendServlet();
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -101,17 +101,17 @@ class FrontendServletTest {
         assertEquals("image/gif", response.getContentType());
         assertThat(response.getHeader("Cache-Control")).isNull();
         assertThat(response.getHeader("Expires")).isNull();
-        String responseBody = response.getOutputStreamContent();
+        var responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("GIF87");
     }
 
     @Test
     void testGetPng() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        var request = new MockHttpServletRequest();
         request.setPathInfo("berglia.png");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        MockLogService logservice = new MockLogService();
-        FrontendServlet servlet = new FrontendServlet();
+        var response = new MockHttpServletResponse();
+        var logservice = new MockLogService();
+        var servlet = new FrontendServlet();
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -119,17 +119,17 @@ class FrontendServletTest {
         assertEquals("image/png", response.getContentType());
         assertThat(response.getHeader("Cache-Control")).isNull();
         assertThat(response.getHeader("Expires")).isNull();
-        String responseBody = response.getOutputStreamContent();
+        var responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("PNG");
     }
 
     @Test
     void testGetRedirectToSlash() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        var request = new MockHttpServletRequest();
         request.setRequestURL("http://localhost:8181/someapp");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        MockLogService logservice = new MockLogService();
-        FrontendServlet servlet = new FrontendServlet();
+        var response = new MockHttpServletResponse();
+        var logservice = new MockLogService();
+        var servlet = new FrontendServlet();
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -138,12 +138,12 @@ class FrontendServletTest {
 
     @Test
     void testGetNotFound() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        var request = new MockHttpServletRequest();
         request.setRequestURL("http://localhost:8181/someapp");
         request.setPathInfo("/notfound.html");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        MockLogService logservice = new MockLogService();
-        FrontendServlet servlet = new FrontendServlet();
+        var response = new MockHttpServletResponse();
+        var logservice = new MockLogService();
+        var servlet = new FrontendServlet();
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -152,16 +152,16 @@ class FrontendServletTest {
 
     @Test
     void testGetResponseThrowsIOException() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        var request = new MockHttpServletRequest();
         request.setRequestURL("http://localhost:8181/someapp");
         request.setPathInfo("/");
-        MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
+        var response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
         response.resetAll();
-        ServletOutputStream streamThrowingIOException = mock(ServletOutputStream.class);
+        var streamThrowingIOException = mock(ServletOutputStream.class);
         doThrow(IOException.class).when(streamThrowingIOException).write(anyInt());
         when(response.getOutputStream()).thenReturn(streamThrowingIOException);
-        MockLogService logservice = new MockLogService();
-        FrontendServlet servlet = new FrontendServlet();
+        var logservice = new MockLogService();
+        var servlet = new FrontendServlet();
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -170,7 +170,7 @@ class FrontendServletTest {
 
     @Test
     void testGuessContentTypeFromResourceName() {
-        FrontendServlet servlet = new FrontendServlet();
+        var servlet = new FrontendServlet();
         assertEquals("text/javascript", servlet.guessContentTypeFromResourceName("bundle.js"));
         assertEquals("text/css", servlet.guessContentTypeFromResourceName("application.css"));
         assertEquals("image/x-icon", servlet.guessContentTypeFromResourceName("favicon.ico"));
@@ -179,7 +179,7 @@ class FrontendServletTest {
 
     @Test
     void testSetRoutes() {
-        FrontendServlet servlet = new FrontendServlet();
+        var servlet = new FrontendServlet();
 
         assertEquals(2, servlet.getRoutes().size());
         servlet.setRoutes("/", "/addstore", "/statistics", "/login");
@@ -206,17 +206,17 @@ class FrontendServletTest {
 
     @Test
     void testProcessResource() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        var request = new MockHttpServletRequest();
         request.setPathInfo("/");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        MockLogService logservice = new MockLogService();
-        FrontendServlet servlet = new FrontendServletThatDoesProcessing();
+        var response = new MockHttpServletResponse();
+        var logservice = new MockLogService();
+        var servlet = new FrontendServletThatDoesProcessing();
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
         assertEquals(SC_NOT_IMPLEMENTED, response.getErrorCode());
         assertEquals("text/plain", response.getContentType());
-        String responseBody = response.getOutputStreamContent();
+        var responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains("Processing of content not implemented");
     }
 
