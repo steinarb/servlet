@@ -17,11 +17,11 @@
     <parent>
         <groupId>no.priv.bang.servlet</groupId>
         <artifactId>servlet-parent</artifactId>
-        <version>1.6.10-SNAPSHOT</version>
+        <version>1.6.10</version>
     </parent>
     <groupId>no.priv.bang.servlet</groupId>
     <artifactId>servlet</artifactId>
-    <version>1.6.10-SNAPSHOT</version>
+    <version>1.6.10</version>
 
     <packaging>pom</packaging>
 
