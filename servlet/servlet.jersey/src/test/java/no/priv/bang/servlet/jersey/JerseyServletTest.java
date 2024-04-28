@@ -80,13 +80,13 @@ class JerseyServletTest {
 
     @Test
     void testGetWithResourcePackageSetInConfig() throws Exception {
-        MockHttpServletRequest request = buildGetUrl("hi");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        MockLogService logservice = new MockLogService();
-        ExampleJerseyServlet servlet = new ExampleJerseyServlet();
+        var request = buildGetUrl("hi");
+        var response = new MockHttpServletResponse();
+        var logservice = new MockLogService();
+        var servlet = new ExampleJerseyServlet();
         servlet.setLogService(logservice);
-        HelloService hello = mock(HelloService.class);
-        String helloString = "Hi there world!";
+        var hello = mock(HelloService.class);
+        var helloString = "Hi there world!";
         when(hello.hello()).thenReturn(helloString);
         servlet.setHelloService(hello);
         servlet.activate();
@@ -96,7 +96,7 @@ class JerseyServletTest {
         servlet.service(request, response);
         assertEquals(200, response.getStatus());
         assertEquals("text/plain", response.getContentType());
-        String responseBody = response.getOutputStreamContent();
+        var responseBody = response.getOutputStreamContent();
         assertThat(responseBody).contains(helloString);
     }
 
@@ -170,14 +170,14 @@ class JerseyServletTest {
     }
 
     private MockHttpServletRequest buildGetUrl(String resource) {
-        MockHttpServletRequest request = buildRequest(resource);
+        var request = buildRequest(resource);
         request.setMethod("GET");
         return request;
     }
 
     private MockHttpServletRequest buildRequest(String resource) {
-        MockHttpSession session = new MockHttpSession();
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        var session = new MockHttpSession();
+        var request = new MockHttpServletRequest();
         request.setProtocol("HTTP/1.1");
         request.setRequestURL("http://localhost:8181/" + resource);
         request.setRequestURI("/" + resource);
@@ -188,7 +188,7 @@ class JerseyServletTest {
     }
 
     private ServletConfig createEmptServletConfig() {
-        ServletConfig config = mock(ServletConfig.class);
+        var config = mock(ServletConfig.class);
         when(config.getInitParameterNames()).thenReturn(Collections.enumeration(Collections.emptyList()));
         ServletContext servletContext = mock(ServletContext.class);
         when(servletContext.getContextPath()).thenReturn("");
@@ -198,10 +198,10 @@ class JerseyServletTest {
     }
 
     private ServletConfig createServletConfigWithApplicationAndPackagenameForJerseyResources() {
-        ServletConfig config = mock(ServletConfig.class);
+        var config = mock(ServletConfig.class);
         when(config.getInitParameterNames()).thenReturn(Collections.enumeration(Arrays.asList(ServerProperties.PROVIDER_PACKAGES)));
         when(config.getInitParameter(ServerProperties.PROVIDER_PACKAGES)).thenReturn("no.priv.bang.servlet.jersey.test.webapiresources");
-        ServletContext servletContext = mock(ServletContext.class);
+        var servletContext = mock(ServletContext.class);
         when(servletContext.getContextPath()).thenReturn("");
         when(config.getServletContext()).thenReturn(servletContext);
         when(servletContext.getAttributeNames()).thenReturn(Collections.emptyEnumeration());
