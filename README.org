@@ -27,6 +27,7 @@ Servlet and filter classes that are intended to be inherited to cut down on boil
 
 | Date                   | Version | Comment                                                                                   |
 |------------------------+---------+-------------------------------------------------------------------------------------------|
+| <2024-05-31 Fri 20:30> |   1.7.0 | use shiro-jaxrs 2.0.1                                                                     |
 | <2024-03-25 Mon 12:36> |  1.6.11 | jersey 2.42, jackson 2.16.2                                                               |
 | <2024-03-01 Fri 17:54> |  1.6.10 | add [[https://shiro.apache.org/jaxrs.html][shiro-jaxrs]] feature to JerseyServlet                                                  |
 | <2023-11-05 Sun 10:37> |   1.6.9 | jersey 2.41, jackson 2.15.3, junit jupiter 5.10.0, mockito 5.7.0, and mockrunner 2.0.7    |
@@ -74,7 +75,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.frontend</artifactId>
-   <version>1.6.11</version>
+   <version>1.7.0</version>
   </dependency>
 #+end_src
 
@@ -87,7 +88,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
          <dependency>
           <groupId>no.priv.bang.servlet</groupId>
           <artifactId>servlet-bom</artifactId>
-          <version>1.6.11</version>
+          <version>1.7.0</version>
           <type>pom</type>
           <scope>import</scope>
          </dependency>
@@ -169,7 +170,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.jersey</artifactId>
-   <version>1.6.11</version>
+   <version>1.7.0</version>
   </dependency>
 #+end_src
 
@@ -182,7 +183,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
          <dependency>
           <groupId>no.priv.bang.servlet</groupId>
           <artifactId>servlet-bom</artifactId>
-          <version>1.6.11</version>
+          <version>1.7.0</version>
           <type>pom</type>
           <scope>import</scope>
          </dependency>
