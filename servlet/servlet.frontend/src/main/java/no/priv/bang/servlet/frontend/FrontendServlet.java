@@ -96,7 +96,7 @@ public class FrontendServlet extends HttpServlet{
                         return;
                     }
 
-                    handleResourceNotFound(response, resource);
+                    handleResourceNotFound(request, response, resource);
                 }
             }
         } catch (IOException e) {
@@ -156,11 +156,11 @@ public class FrontendServlet extends HttpServlet{
      * the request path.
      *
      * This method can be replaced in a subclass that should return a custom not found response.
-     *
+     * @param request Can be used to get e.g. the servlet context if one wishes to link to the top of the application
      * @param response Implementors of this method needs to set content type, status code and body in the response object
      * @param resource the path to the requested, and missing, resource
      */
-    protected void handleResourceNotFound(HttpServletResponse response, String resource) throws IOException {
+    protected void handleResourceNotFound(HttpServletRequest request, HttpServletResponse response, String resource) throws IOException {
         var message = String.format("Resource \"%s\" not found on the classpath", resource);
         logger.error(message);
         response.sendError(SC_NOT_FOUND, message);
