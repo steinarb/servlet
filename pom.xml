@@ -21,7 +21,7 @@
     </parent>
     <groupId>no.priv.bang.servlet</groupId>
     <artifactId>servlet-parent</artifactId>
-    <version>1.8.0</version>
+    <version>1.8.1-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -134,7 +134,7 @@
     <scm>
         <url>https://github.com/steinarb/servlet</url>
         <connection>scm:git:https://github.com/steinarb/servlet.git</connection>
-        <tag>servlet-1.8.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
