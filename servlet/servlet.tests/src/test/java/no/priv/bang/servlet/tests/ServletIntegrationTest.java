@@ -34,6 +34,7 @@ import org.ops4j.pax.exam.spi.reactors.PerClass;
 public class ServletIntegrationTest extends KarafTestSupport {
 
     @Configuration
+    @Override
     public Option[] config() {
         final var jerseyServletFeatureRepo = maven()
             .groupId("no.priv.bang.servlet")
