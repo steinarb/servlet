@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2024 Steinar Bang
+ * Copyright 2019-2025 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,15 @@
  */
 package no.priv.bang.servlet.frontend;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -52,6 +55,24 @@ public class FrontendServlet extends HttpServlet{
     private static final long serialVersionUID = -7910979327492294627L;
     private final ArrayList<String> routes = new ArrayList<>(Arrays.asList("/", "/login"));
     private final LoggerAdapter logger = new LoggerAdapter(getClass());
+
+    public FrontendServlet() {
+        super();
+        readLinesFromClasspath();
+    }
+
+    /**
+     * Override in subclass if a different name than the default value is needed.
+     *
+     * @return the default value for the routes file classpath resource name "assets/routes.txt"
+     */
+    public String getRoutesClasspathName() {
+        return "assets/routes.txt";
+    }
+
+    public Optional<InputStream> getRoutesClasspathStream() {
+        return Optional.ofNullable(this.getClass().getClassLoader().getResourceAsStream(getRoutesClasspathName()));
+    }
 
     public List<String> getRoutes() {
         return routes;
@@ -199,6 +220,24 @@ public class FrontendServlet extends HttpServlet{
         }
 
         return null;
+    }
+
+    void readLinesFromClasspath() {
+        getRoutesClasspathStream().ifPresent(stream -> {
+            try (var reader = new BufferedReader(new InputStreamReader(stream))) {
+                routes.clear();
+                routes.addAll(reader.lines().toList());
+            } catch (IOException e) {
+                sneakyThrows(e);
+            }
+        });
+    }
+
+    // Trick to make compiler stop complaining about unhandled checked exceptions
+    // (which is truly annoying clutter where the exception quite possible can't happen)
+    @SuppressWarnings("unchecked")
+    public static <E extends Throwable> void sneakyThrows(Throwable e) throws E {
+        throw (E) e;
     }
 
     private String findResourceFromPathInfo(String pathInfo) {

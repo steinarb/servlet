@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2024 Steinar Bang
+ * Copyright 2019-2025 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -181,9 +183,71 @@ class FrontendServletTest {
     void testSetRoutes() {
         var servlet = new FrontendServlet();
 
-        assertEquals(2, servlet.getRoutes().size());
-        servlet.setRoutes("/", "/addstore", "/statistics", "/login");
-        assertEquals(4, servlet.getRoutes().size());
+        assertThat(servlet.getRoutes()).hasSize(4);
+        servlet.setRoutes("/", "/addstore", "/statistics", "/login", "/logout");
+        assertThat(servlet.getRoutes()).hasSize(5);
+    }
+
+    @Test
+    void testGetRoutes() {
+        var servlet = new FrontendServlet();
+        assertThat(servlet.getRoutes()).hasSize(4);
+    }
+
+    @Test
+    void testGetRoutesWhenNotFoundRoutesFile() {
+        final class NotFoundServlet extends FrontendServlet {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public String getRoutesClasspathName() {
+                return "notfound.txt";
+            }
+
+        }
+        var servlet = new NotFoundServlet();
+
+        assertThat(servlet.getRoutes()).hasSize(2);
+    }
+
+    @Test
+    void testGetRoutesWhenRoutesFileThrowsIOException() throws Exception {
+        var inputstream = spy(this.getClass().getResourceAsStream("/assets/routes.txt"));
+        doThrow(IOException.class).when(inputstream).close();
+        final class IOExceptionServlet extends FrontendServlet {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Optional<InputStream> getRoutesClasspathStream() {
+                return Optional.of(inputstream);
+            }
+        }
+
+        assertThrows(IOException.class, IOExceptionServlet::new);
+    }
+
+    @Test
+    void testGetRoutesClasspathName() {
+        var servlet = new FrontendServlet();
+
+        assertThat(servlet.getRoutesClasspathName()).isEqualTo("assets/routes.txt");
+    }
+
+    @Test
+    void testGetRoutesClasspathStream() {
+        var servlet = new FrontendServlet();
+
+        var routesStream = servlet.getRoutesClasspathStream();
+        assertThat(routesStream).isNotEmpty();
+    }
+
+    @Test
+    void testGetRoutesClasspathStreamWhenNotFound() {
+        var servlet = spy(new FrontendServlet());
+        when(servlet.getRoutesClasspathName()).thenReturn("notfound.txt");
+
+        var routesStream = servlet.getRoutesClasspathStream();
+        assertThat(routesStream).isEmpty();
     }
 
     static class FrontendServletThatDoesProcessing extends FrontendServlet {
