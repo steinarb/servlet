@@ -180,6 +180,23 @@ class FrontendServletTest {
     }
 
     @Test
+    void testGuessContentTypeFromResourceNameWhenURLConnectionFails() {
+        final class FrontendServletWithoutURLConnection extends FrontendServlet {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            String urlConnectionGuessContentTypeFromName(String resource) {
+                return null;
+            }
+        }
+        var servlet = new FrontendServletWithoutURLConnection();
+        assertEquals("text/javascript", servlet.guessContentTypeFromResourceName("bundle.js"));
+        assertEquals("text/css", servlet.guessContentTypeFromResourceName("application.css"));
+        assertEquals("image/x-icon", servlet.guessContentTypeFromResourceName("favicon.ico"));
+        assertNull(servlet.guessContentTypeFromResourceName("unknown.type"));
+    }
+
+    @Test
     void testSetRoutes() {
         var servlet = new FrontendServlet();
 

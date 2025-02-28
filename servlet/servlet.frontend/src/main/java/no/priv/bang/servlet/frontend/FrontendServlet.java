@@ -201,7 +201,7 @@ public class FrontendServlet extends HttpServlet{
     }
 
     String guessContentTypeFromResourceName(String resource) {
-        var contentType = URLConnection.guessContentTypeFromName(resource);
+        var contentType = urlConnectionGuessContentTypeFromName(resource);
         if (contentType != null) {
             return contentType;
         }
@@ -220,6 +220,10 @@ public class FrontendServlet extends HttpServlet{
         }
 
         return null;
+    }
+
+    String urlConnectionGuessContentTypeFromName(String resource) {
+        return URLConnection.guessContentTypeFromName(resource);
     }
 
     void readLinesFromClasspath() {
