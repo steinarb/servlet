@@ -41,7 +41,7 @@ class FrontendServletTest {
         request.setPathInfo("/");
         var response = new MockHttpServletResponse();
         var logservice = new MockLogService();
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -59,7 +59,7 @@ class FrontendServletTest {
         request.setPathInfo("/login");
         var response = new MockHttpServletResponse();
         var logservice = new MockLogService();
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -77,7 +77,7 @@ class FrontendServletTest {
         request.setPathInfo("app.css");
         var response = new MockHttpServletResponse();
         var logservice = new MockLogService();
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -95,7 +95,7 @@ class FrontendServletTest {
         request.setPathInfo("rv306.gif");
         var response = new MockHttpServletResponse();
         var logservice = new MockLogService();
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -113,7 +113,7 @@ class FrontendServletTest {
         request.setPathInfo("berglia.png");
         var response = new MockHttpServletResponse();
         var logservice = new MockLogService();
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -131,7 +131,7 @@ class FrontendServletTest {
         request.setRequestURL("http://localhost:8181/someapp");
         var response = new MockHttpServletResponse();
         var logservice = new MockLogService();
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -145,7 +145,7 @@ class FrontendServletTest {
         request.setPathInfo("/notfound.html");
         var response = new MockHttpServletResponse();
         var logservice = new MockLogService();
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -163,7 +163,7 @@ class FrontendServletTest {
         doThrow(IOException.class).when(streamThrowingIOException).write(anyInt());
         when(response.getOutputStream()).thenReturn(streamThrowingIOException);
         var logservice = new MockLogService();
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
         servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
@@ -172,7 +172,7 @@ class FrontendServletTest {
 
     @Test
     void testGuessContentTypeFromResourceName() {
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
         assertEquals("text/javascript", servlet.guessContentTypeFromResourceName("bundle.js"));
         assertEquals("text/css", servlet.guessContentTypeFromResourceName("application.css"));
         assertEquals("image/x-icon", servlet.guessContentTypeFromResourceName("favicon.ico"));
@@ -182,6 +182,10 @@ class FrontendServletTest {
     @Test
     void testGuessContentTypeFromResourceNameWhenURLConnectionFails() {
         final class FrontendServletWithoutURLConnection extends FrontendServlet {
+            public FrontendServletWithoutURLConnection() {
+                super(FrontendServletWithoutURLConnection.class);
+            }
+
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -198,7 +202,7 @@ class FrontendServletTest {
 
     @Test
     void testSetRoutes() {
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
 
         assertThat(servlet.getRoutes()).hasSize(4);
         servlet.setRoutes("/", "/addstore", "/statistics", "/login", "/logout");
@@ -207,13 +211,17 @@ class FrontendServletTest {
 
     @Test
     void testGetRoutes() {
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
         assertThat(servlet.getRoutes()).hasSize(4);
     }
 
     @Test
     void testGetRoutesWhenNotFoundRoutesFile() {
         final class NotFoundServlet extends FrontendServlet {
+            public NotFoundServlet() {
+                super(NotFoundServlet.class);
+            }
+
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -232,10 +240,14 @@ class FrontendServletTest {
         var inputstream = spy(this.getClass().getResourceAsStream("/assets/routes.txt"));
         doThrow(IOException.class).when(inputstream).close();
         final class IOExceptionServlet extends FrontendServlet {
+            public IOExceptionServlet() {
+                super(IOExceptionServlet.class);
+            }
+
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Optional<InputStream> getRoutesClasspathStream() {
+            public Optional<InputStream> getRoutesClasspathStream(Class<?> clazz) {
                 return Optional.of(inputstream);
             }
         }
@@ -245,29 +257,33 @@ class FrontendServletTest {
 
     @Test
     void testGetRoutesClasspathName() {
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
 
         assertThat(servlet.getRoutesClasspathName()).isEqualTo("assets/routes.txt");
     }
 
     @Test
     void testGetRoutesClasspathStream() {
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
 
-        var routesStream = servlet.getRoutesClasspathStream();
+        var routesStream = servlet.getRoutesClasspathStream(FrontendServletTest.class);
         assertThat(routesStream).isNotEmpty();
     }
 
     @Test
     void testGetRoutesClasspathStreamWhenNotFound() {
-        var servlet = spy(new FrontendServlet());
+        var servlet = spy(new FrontendServlet(FrontendServletTest.class));
         when(servlet.getRoutesClasspathName()).thenReturn("notfound.txt");
 
-        var routesStream = servlet.getRoutesClasspathStream();
+        var routesStream = servlet.getRoutesClasspathStream(FrontendServletTest.class);
         assertThat(routesStream).isEmpty();
     }
 
     static class FrontendServletThatDoesProcessing extends FrontendServlet {
+        public FrontendServletThatDoesProcessing() {
+            super(FrontendServletThatDoesProcessing.class);
+        }
+
         private static final long serialVersionUID = -1123678063196681870L;
 
         @Override
@@ -279,7 +295,7 @@ class FrontendServletTest {
 
     @Test
     void testShouldNotBeCached() {
-        var servlet = new FrontendServlet();
+        var servlet = new FrontendServlet(FrontendServletTest.class);
 
         assertFalse(servlet.shouldNotBeCached("app.css"));
         assertTrue(servlet.shouldNotBeCached("index.html"));

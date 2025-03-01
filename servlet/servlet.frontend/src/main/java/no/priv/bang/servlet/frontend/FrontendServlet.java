@@ -56,9 +56,30 @@ public class FrontendServlet extends HttpServlet{
     private final ArrayList<String> routes = new ArrayList<>(Arrays.asList("/", "/login"));
     private final LoggerAdapter logger = new LoggerAdapter(getClass());
 
-    public FrontendServlet() {
+    /**
+     * In OSGi classpath resources aren't visible outside of the bundle (i.e. jar file) they reside
+     * in.  This means that a {@link ClassLoader} from a {@link Class} in the same jar file as
+     * the resource is needed (the class from the this pointer of a derived class of {@link FrontendServlet}
+     * will just return the {@link ClassLoader} of the FrontendServlet's bundle/jar file and will not
+     * find resources in the jar file the actual class of the this pointer.
+     *
+     * So a way of passing the {@link ClassLoader} to the code loading the resources is needed.
+     *
+     * The simplest way is to make a no-argument constructor for the base class and pass
+     * the derived class' type to this constructor, like e.g. so:
+     * <pre>
+     * public class SampleappServlet extends FrontendServlet {
+     *     public SampleappServlet() {
+     *             super(SampleappServlet.class);
+     *     }
+     * }
+     * </pre>
+     *
+     * @param derivedClass is the class of derived class used to get {@link ClassLoader} used to find the classpath resource of file holding list of react router routes
+     */
+    protected FrontendServlet(Class<?> derivedClass) {
         super();
-        readLinesFromClasspath();
+        readLinesFromClasspath(derivedClass);
     }
 
     /**
@@ -70,8 +91,8 @@ public class FrontendServlet extends HttpServlet{
         return "assets/routes.txt";
     }
 
-    public Optional<InputStream> getRoutesClasspathStream() {
-        return Optional.ofNullable(this.getClass().getClassLoader().getResourceAsStream(getRoutesClasspathName()));
+    public Optional<InputStream> getRoutesClasspathStream(Class<?> derivedClass) {
+        return Optional.ofNullable(derivedClass.getClassLoader().getResourceAsStream(getRoutesClasspathName()));
     }
 
     public List<String> getRoutes() {
@@ -226,8 +247,8 @@ public class FrontendServlet extends HttpServlet{
         return URLConnection.guessContentTypeFromName(resource);
     }
 
-    void readLinesFromClasspath() {
-        getRoutesClasspathStream().ifPresent(stream -> {
+    void readLinesFromClasspath(Class<?> derivedClass) {
+        getRoutesClasspathStream(derivedClass).ifPresent(stream -> {
             try (var reader = new BufferedReader(new InputStreamReader(stream))) {
                 routes.clear();
                 routes.addAll(reader.lines().toList());
