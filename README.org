@@ -7,7 +7,7 @@ Servlet and filter classes that are intended to be inherited to cut down on boil
 [[https://github.com/steinarb/servlet/actions/workflows/servlet-maven-ci-build.yml][file:https://github.com/steinarb/servlet/actions/workflows/servlet-maven-ci-build.yml/badge.svg]]
 [[https://coveralls.io/github/steinarb/servlet][file:https://coveralls.io/repos/github/steinarb/servlet/badge.svg]]
 [[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_servlet&metric=alert_status#.svg]]
-[[https://maven-badges.herokuapp.com/maven-central/no.priv.bang.servlet/servlet][file:https://maven-badges.herokuapp.com/maven-central/no.priv.bang.servlet/servlet/badge.svg]]
+[[https://maven-badges.sml.io/sonatype-central/no.priv.bang.servlet/servlet][file:https://maven-badges.sml.io/sonatype-central/no.priv.bang.servlet/servlet/badge.svg]]
 [[https://www.javadoc.io/doc/no.priv.bang.servlet/servlet][file:https://www.javadoc.io/badge/no.priv.bang.servlet/servlet.svg]]
 
 [[https://sonarcloud.io/summary/new_code?id=steinarb_servlet][file:https://sonarcloud.io/images/project_badges/sonarcloud-white.svg]]
