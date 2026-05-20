@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2024 Steinar Bang
+ * Copyright 2019-2026 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package no.priv.bang.servlet.jersey;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.AdditionalAnswers.delegatesTo;
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
@@ -164,9 +165,16 @@ class JerseyServletTest {
     }
 
     protected void loginUser(HttpServletRequest request, HttpServletResponse response, String username, String password) {
-        var subject = createSubjectAndBindItToThread(request, response);
+        var subject = createSubjectAndBindItToThread(wrapRequestInMock(request), response);
         var token = new UsernamePasswordToken(username, password.toCharArray(), true);
         subject.login(token);
+    }
+
+    // Workaround for MockHttpServletRequest not implementing all methods of HttpServletRequest interface in classpath
+    private HttpServletRequest wrapRequestInMock(HttpServletRequest request) {
+        var wrapped = mock(HttpServletRequest.class, withSettings().defaultAnswer(delegatesTo(request)));
+        doReturn("").when(wrapped).changeSessionId();
+        return wrapped;
     }
 
     private MockHttpServletRequest buildGetUrl(String resource) {
