@@ -19,7 +19,7 @@ under the License.
     <parent>
         <groupId>no.priv.bang.servlet</groupId>
         <artifactId>servlet</artifactId>
-        <version>3.0.7-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <artifactId>servlet.tests</artifactId>
 

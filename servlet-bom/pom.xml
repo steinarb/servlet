@@ -19,7 +19,7 @@ under the License.
     <parent>
         <groupId>no.priv.bang.servlet</groupId>
         <artifactId>servlet-parent</artifactId>
-        <version>3.0.7-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <artifactId>servlet-bom</artifactId>
     <packaging>pom</packaging>
@@ -32,24 +32,24 @@ under the License.
             <dependency>
                 <groupId>no.priv.bang.servlet</groupId>
                 <artifactId>servlet.frontend</artifactId>
-                <version>3.0.7-SNAPSHOT</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>no.priv.bang.servlet</groupId>
                 <artifactId>servlet.frontend</artifactId>
-                <version>3.0.7-SNAPSHOT</version>
+                <version>${revision}</version>
                 <type>xml</type>
                 <classifier>features</classifier>
             </dependency>
             <dependency>
                 <groupId>no.priv.bang.servlet</groupId>
                 <artifactId>servlet.jersey</artifactId>
-                <version>3.0.7-SNAPSHOT</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>no.priv.bang.servlet</groupId>
                 <artifactId>servlet.jersey</artifactId>
-                <version>3.0.7-SNAPSHOT</version>
+                <version>${revision}</version>
                 <type>xml</type>
                 <classifier>features</classifier>
             </dependency>

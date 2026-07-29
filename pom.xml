@@ -23,7 +23,7 @@ under the License.
     </parent>
     <groupId>no.priv.bang.servlet</groupId>
     <artifactId>servlet-parent</artifactId>
-    <version>3.0.7-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <packaging>pom</packaging>
 
@@ -37,6 +37,7 @@ under the License.
     </modules>
 
     <properties>
+        <revision>999-SNAPSHOT</revision>
         <!-- Note: remember to manually update this property when upgrading adapters, because this project doesn't inherit bang-app-pom -->
         <service-adapters.version>1.2.0</service-adapters.version>
         <junit.jupiter.version>6.1.2</junit.jupiter.version>
