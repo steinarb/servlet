@@ -44,12 +44,6 @@ under the License.
 
     <dependencies>
         <dependency>
-            <groupId>no.priv.bang.karaf</groupId>
-            <artifactId>jersey</artifactId>
-            <type>xml</type>
-            <classifier>features</classifier>
-        </dependency>
-        <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-jaxrs</artifactId>
         </dependency>
@@ -62,12 +56,6 @@ under the License.
             <groupId>no.priv.bang.osgi.service.adapters</groupId>
             <artifactId>adapters.logservice</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>no.priv.bang.osgi.service.adapters</groupId>
-            <artifactId>adapters.logservice</artifactId>
-            <type>xml</type>
-            <classifier>features</classifier>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
@@ -83,6 +71,38 @@ under the License.
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component.annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.log</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.http</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>no.priv.bang.karaf</groupId>
+            <artifactId>jersey</artifactId>
+            <type>xml</type>
+            <classifier>features</classifier>
+        </dependency>
+        <dependency>
+            <groupId>no.priv.bang.osgi.service.adapters</groupId>
+            <artifactId>adapters.logservice</artifactId>
+            <type>xml</type>
+            <classifier>features</classifier>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -108,26 +128,6 @@ under the License.
             <groupId>no.priv.bang.osgi.service.adapters</groupId>
             <artifactId>service-mocks</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>osgi.core</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.component.annotations</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.log</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.http</artifactId>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
