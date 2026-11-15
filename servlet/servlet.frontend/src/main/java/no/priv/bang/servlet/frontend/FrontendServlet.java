@@ -1,5 +1,6 @@
+package no.priv.bang.servlet.frontend;
 /*
- * Copyright 2019-2025 Steinar Bang
+ * Copyright 2019-2026 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.servlet.frontend;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,11 +31,11 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static javax.servlet.http.HttpServletResponse.*;
-
-import org.osgi.service.log.LogService;
-
-import no.priv.bang.osgi.service.adapters.logservice.LoggerAdapter;
 
 /**
  * This is a servlet that's intended to be a base class for a DS component
@@ -54,7 +54,7 @@ import no.priv.bang.osgi.service.adapters.logservice.LoggerAdapter;
 public class FrontendServlet extends HttpServlet{
     private static final long serialVersionUID = -7910979327492294627L;
     private final ArrayList<String> routes = new ArrayList<>(Arrays.asList("/", "/login"));
-    private final LoggerAdapter logger = new LoggerAdapter(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * In OSGi classpath resources aren't visible outside of the bundle (i.e. jar file) they reside
@@ -102,10 +102,6 @@ public class FrontendServlet extends HttpServlet{
     public void setRoutes(String ...routes) {
         this.routes.clear();
         this.routes.addAll(Arrays.asList(routes));
-    }
-
-    public void setLogService(LogService logservice) {
-        this.logger.setLogService(logservice);
     }
 
     @Override

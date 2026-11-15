@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-Copyright 2019-2024 Steinar Bang
+Copyright 2019-2026 Steinar Bang
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -53,11 +53,6 @@ under the License.
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>no.priv.bang.osgi.service.adapters</groupId>
-            <artifactId>adapters.logservice</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
             <scope>provided</scope>
@@ -84,23 +79,12 @@ under the License.
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.log</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
             <artifactId>org.osgi.service.http</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>no.priv.bang.karaf</groupId>
             <artifactId>jersey</artifactId>
-            <type>xml</type>
-            <classifier>features</classifier>
-        </dependency>
-        <dependency>
-            <groupId>no.priv.bang.osgi.service.adapters</groupId>
-            <artifactId>adapters.logservice</artifactId>
             <type>xml</type>
             <classifier>features</classifier>
         </dependency>
@@ -124,11 +108,6 @@ under the License.
             <artifactId>mockrunner-servlet</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>no.priv.bang.osgi.service.adapters</groupId>
-            <artifactId>service-mocks</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -139,11 +118,10 @@ under the License.
                 <configuration>
                     <instructions>
                         <Export-Package>
-                            no.priv.bang.servlet.jersey;uses:="javax.servlet,org.glassfish.jersey.servlet,org.osgi.service.log";version="1.4.0"
+                            no.priv.bang.servlet.jersey
                         </Export-Package>
                         <Import-Package>
                             org.glassfish.jersey.inject.hk2,
-                            org.osgi.service.log;version="[1.4,2)",
                             *
                         </Import-Package>
                     </instructions>

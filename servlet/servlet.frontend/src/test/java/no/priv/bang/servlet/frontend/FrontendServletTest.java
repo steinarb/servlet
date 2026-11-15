@@ -1,5 +1,6 @@
+package no.priv.bang.servlet.frontend;
 /*
- * Copyright 2019-2025 Steinar Bang
+ * Copyright 2019-2026 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.servlet.frontend;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -31,8 +31,6 @@ import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockHttpServletResponse;
 import static javax.servlet.http.HttpServletResponse.*;
 
-import no.priv.bang.osgi.service.mocks.logservice.MockLogService;
-
 class FrontendServletTest {
 
     @Test
@@ -40,9 +38,7 @@ class FrontendServletTest {
         var request = new MockHttpServletRequest();
         request.setPathInfo("/");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new FrontendServlet(FrontendServletTest.class);
-        servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
         assertEquals(SC_OK, response.getStatus());
@@ -58,9 +54,7 @@ class FrontendServletTest {
         var request = new MockHttpServletRequest();
         request.setPathInfo("/login");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new FrontendServlet(FrontendServletTest.class);
-        servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
         assertEquals(SC_OK, response.getStatus());
@@ -76,9 +70,7 @@ class FrontendServletTest {
         var request = new MockHttpServletRequest();
         request.setPathInfo("app.css");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new FrontendServlet(FrontendServletTest.class);
-        servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
         assertEquals(SC_OK, response.getStatus());
@@ -94,9 +86,7 @@ class FrontendServletTest {
         var request = new MockHttpServletRequest();
         request.setPathInfo("rv306.gif");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new FrontendServlet(FrontendServletTest.class);
-        servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
         assertEquals(SC_OK, response.getStatus());
@@ -112,9 +102,7 @@ class FrontendServletTest {
         var request = new MockHttpServletRequest();
         request.setPathInfo("berglia.png");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new FrontendServlet(FrontendServletTest.class);
-        servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
         assertEquals(SC_OK, response.getStatus());
@@ -130,9 +118,7 @@ class FrontendServletTest {
         var request = new MockHttpServletRequest();
         request.setRequestURL("http://localhost:8181/someapp");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new FrontendServlet(FrontendServletTest.class);
-        servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
         assertEquals(SC_FOUND, response.getStatus());
@@ -144,9 +130,7 @@ class FrontendServletTest {
         request.setRequestURL("http://localhost:8181/someapp");
         request.setPathInfo("/notfound.html");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new FrontendServlet(FrontendServletTest.class);
-        servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
         assertEquals(SC_NOT_FOUND, response.getErrorCode());
@@ -162,9 +146,7 @@ class FrontendServletTest {
         var streamThrowingIOException = mock(ServletOutputStream.class);
         doThrow(IOException.class).when(streamThrowingIOException).write(anyInt());
         when(response.getOutputStream()).thenReturn(streamThrowingIOException);
-        var logservice = new MockLogService();
         var servlet = new FrontendServlet(FrontendServletTest.class);
-        servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
         assertEquals(SC_INTERNAL_SERVER_ERROR, response.getStatus());
@@ -306,9 +288,7 @@ class FrontendServletTest {
         var request = new MockHttpServletRequest();
         request.setPathInfo("/");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new FrontendServletThatDoesProcessing();
-        servlet.setLogService(logservice);
 
         servlet.doGet(request, response);
         assertEquals(SC_NOT_IMPLEMENTED, response.getErrorCode());

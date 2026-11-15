@@ -1,5 +1,6 @@
+package no.priv.bang.servlet.jersey;
 /*
- * Copyright 2019-2024 Steinar Bang
+ * Copyright 2019-2026 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.servlet.jersey;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,9 +26,8 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.WebConfig;
-import org.osgi.service.log.LogService;
-
-import no.priv.bang.osgi.service.adapters.logservice.LoggerAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is a servlet that's intended to be a base class for a DS component
@@ -45,7 +44,7 @@ import no.priv.bang.osgi.service.adapters.logservice.LoggerAdapter;
  */
 public class JerseyServlet extends ServletContainer {
     private static final long serialVersionUID = -1314568939940495758L;
-    private final LoggerAdapter logger = new LoggerAdapter(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final String defaultResourcePackage = getClass().getPackage().getName() + ".resources";
     private final Map<Class<?>, Object> injectedServices = new HashMap<>();
 
@@ -56,28 +55,11 @@ public class JerseyServlet extends ServletContainer {
      * DS components implementing the {@link Servlet} interface should call this method
      * to register injected OSGi services.
      *
-     * <em>Note</em>! Injections of {@link LogService} should call the {@link #setLogService(LogService)}
-     * method instead (since the JerseyServlet class uses the {@link LogService} on errors
-     * in servlet setup.
-     *
      * @param servicetype the {@link Class} of the injected OSGi service
      * @param service the OSGi service to register with the HK2 dependency injection container
      */
     protected void addInjectedOsgiService(Class<?> servicetype, Object service) {
         injectedServices.put(servicetype, service);
-    }
-
-    /**
-     * Used to register the OSGi {@link LogService} to the JerseyServlet.
-     * The service is used by the JerseyServlet itself, but also added
-     * to the HK2 dependency container, so that the {@link LogService}
-     * can be injected into Jersey resources.
-     *
-     * @param logservice an OSGi {@link LogService}
-     */
-    public void setLogService(LogService logservice) {
-        this.logger.setLogService(logservice);
-        addInjectedOsgiService(LogService.class, logservice);
     }
 
     @Override

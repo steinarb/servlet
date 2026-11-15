@@ -1,3 +1,4 @@
+package no.priv.bang.servlet.jersey;
 /*
  * Copyright 2019-2026 Steinar Bang
  *
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.servlet.jersey;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalAnswers.delegatesTo;
@@ -45,7 +45,6 @@ import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockHttpServletResponse;
 import com.mockrunner.mock.web.MockHttpSession;
 
-import no.priv.bang.osgi.service.mocks.logservice.MockLogService;
 import no.priv.bang.servlet.jersey.test.ExampleJerseyServlet;
 import no.priv.bang.servlet.jersey.test.HelloService;
 
@@ -61,9 +60,7 @@ class JerseyServletTest {
     void testGet() throws Exception {
         var request = buildGetUrl("hello");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new ExampleJerseyServlet();
-        servlet.setLogService(logservice);
         var hello = mock(HelloService.class);
         var helloString = "Hello world!";
         when(hello.hello()).thenReturn(helloString);
@@ -83,9 +80,7 @@ class JerseyServletTest {
     void testGetWithResourcePackageSetInConfig() throws Exception {
         var request = buildGetUrl("hi");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new ExampleJerseyServlet();
-        servlet.setLogService(logservice);
         var hello = mock(HelloService.class);
         var helloString = "Hi there world!";
         when(hello.hello()).thenReturn(helloString);
@@ -105,9 +100,7 @@ class JerseyServletTest {
     void testGetProtectedWithLoggedInUserWithRequiredRole() throws Exception {
         var request = buildGetUrl("protected");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new ExampleJerseyServlet();
-        servlet.setLogService(logservice);
         var hello = mock(HelloService.class);
         var helloString = "Hello world!";
         when(hello.hello()).thenReturn(helloString);
@@ -128,9 +121,7 @@ class JerseyServletTest {
     void testGetProtectedWithLoggedInUserWithoutRequiredRole() throws Exception {
         var request = buildGetUrl("protected");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new ExampleJerseyServlet();
-        servlet.setLogService(logservice);
         var hello = mock(HelloService.class);
         var helloString = "Hello world!";
         when(hello.hello()).thenReturn(helloString);
@@ -148,9 +139,7 @@ class JerseyServletTest {
     void testGetProtectedWithoutLoggedInUser() throws Exception {
         var request = buildGetUrl("protected");
         var response = new MockHttpServletResponse();
-        var logservice = new MockLogService();
         var servlet = new ExampleJerseyServlet();
-        servlet.setLogService(logservice);
         var hello = mock(HelloService.class);
         var helloString = "Hello world!";
         when(hello.hello()).thenReturn(helloString);
