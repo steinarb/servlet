@@ -44,6 +44,10 @@ under the License.
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--
+                Note: the karaf BOM imports slf4j-api version consistent with the BOM's version of karaf
+                I.e. no need to import slf4j BOM explictly and good reasons not to (conflicting versions)
+            -->
             <dependency>
                 <groupId>org.apache.karaf</groupId>
                 <artifactId>karaf-bom</artifactId>
