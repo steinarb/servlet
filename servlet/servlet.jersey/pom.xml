@@ -68,21 +68,6 @@ under the License.
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>osgi.core</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.component.annotations</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.http</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>no.priv.bang.karaf</groupId>
             <artifactId>jersey</artifactId>
             <type>xml</type>
