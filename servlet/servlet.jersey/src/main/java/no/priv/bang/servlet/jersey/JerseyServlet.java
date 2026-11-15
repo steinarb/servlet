@@ -86,14 +86,14 @@ public class JerseyServlet extends ServletContainer {
         var hasProviderPackages = getConfiguration().getPropertyNames().contains(ServerProperties.PROVIDER_PACKAGES);
         var copyOfExistingConfig = new ResourceConfig(getConfiguration());
         copyOfExistingConfig.register(new AbstractBinder() {
-                @SuppressWarnings("unchecked")
-                @Override
-                protected void configure() {
-                    for (var injectedService : injectedServices.entrySet()) {
-                        bind(injectedService.getValue()).to((Class<? super Object>) injectedService.getKey());
-                    }
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void configure() {
+                for (var injectedService : injectedServices.entrySet()) {
+                    bind(injectedService.getValue()).to((Class<? super Object>) injectedService.getKey());
                 }
-            });
+            }
+        });
         setJerseyResourcePackagesDefaultIfNotSetElsewhere(hasProviderPackages, copyOfExistingConfig);
         copyOfExistingConfig.register(ShiroFeature.class);
         reload(copyOfExistingConfig);
