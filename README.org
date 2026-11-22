@@ -27,6 +27,7 @@ Servlet and filter classes that are intended to be inherited to cut down on boil
 
 | Date                   | Version | Comment                                                                                   |
 |------------------------+---------+-------------------------------------------------------------------------------------------|
+| <2026-11-22 Sun 23:25> |   4.0.0 | Replace OSGi LogService with slf4j breaking API, jersey 2.48, jackson 2.23.0              |
 | <2026-06-17 Wed 22:15> |   3.0.6 | Use shiro-jaxrs 2.2.1                                                                     |
 | <2026-05-20 Wed 19:44> |   3.0.5 | Use shiro-jaxrs 2.2.0                                                                     |
 | <2026-02-13 Fri 22:43> |   3.0.4 | Use shiro-jaxrs 2.1.0                                                                     |
@@ -87,7 +88,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.frontend</artifactId>
-   <version>3.0.6</version>
+   <version>4.0.0</version>
   </dependency>
 #+end_src
 
@@ -100,7 +101,7 @@ To use the servlet in a webapp running in the apache karaf web whiteboard apache
          <dependency>
           <groupId>no.priv.bang.servlet</groupId>
           <artifactId>servlet-bom</artifactId>
-          <version>3.0.6</version>
+          <version>4.0.0</version>
           <type>pom</type>
           <scope>import</scope>
          </dependency>
@@ -182,7 +183,7 @@ To use the servlet in an application built with maven, add the maven dependency:
   <dependency>
    <groupId>no.priv.bang.servlet</groupId>
    <artifactId>servlet.jersey</artifactId>
-   <version>3.0.6</version>
+   <version>4.0.0</version>
   </dependency>
 #+end_src
 
